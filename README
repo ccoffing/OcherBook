@@ -16,6 +16,9 @@ To get started, look in the doc directory, and/or "make help".
 
 To see what platforms are supported and to what degree, look in doc/platforms/.
 
+Note that the OcherBook code has been relicensed under the BSD 2-clause license.
+See doc/COPYING.
+
 See also:
 OcherBook                   http://usccoffings.net/clc/tech/ocherbook
 Hacking the Kobo Touch      http://usccoffings.net/clc/tech/embedded/kobo

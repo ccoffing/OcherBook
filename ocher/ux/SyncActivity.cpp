@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2013, Chuck Coffing
+ * OcherBook is released under the BSD 2-clause license.  See COPYING.
+ */
+
 #include <sys/types.h>
 #include <sys/stat.h>
 

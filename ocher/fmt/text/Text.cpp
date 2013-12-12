@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2013, Chuck Coffing
+ * OcherBook is released under the BSD 2-clause license.  See COPYING.
+ */
+
 #include "clc/storage/File.h"
 #include "clc/support/Logger.h"
 #include "ocher/fmt/text/Text.h"

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2013, Chuck Coffing
+ * OcherBook is released under the BSD 2-clause license.  See COPYING.
+ */
+
 #ifndef MX50_FB_H
 #define MX50_FB_H
 

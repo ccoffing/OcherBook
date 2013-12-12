@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2013, Chuck Coffing
+ * OcherBook is released under the BSD 2-clause license.  See COPYING.
+ */
+
 #ifndef OCHER_DEV_POWER_SAVER_H
 #define OCHER_DEV_POWER_SAVER_H
 

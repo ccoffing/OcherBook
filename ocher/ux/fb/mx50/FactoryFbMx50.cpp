@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2013, Chuck Coffing
+ * OcherBook is released under the BSD 2-clause license.  See COPYING.
+ */
+
 #include "ocher/device/kobo/KoboEvents.h"
 #include "ocher/ocher.h"
 #include "ocher/ux/fb/mx50/FactoryFbMx50.h"

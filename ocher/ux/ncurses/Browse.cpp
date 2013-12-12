@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2013, Chuck Coffing
+ * OcherBook is released under the BSD 2-clause license.  See COPYING.
+ */
+
 #include "ocher/ux/Factory.h"
 #include "ocher/ux/ncurses/Browse.h"
 #include "ocher/shelf/Meta.h"
