@@ -14,27 +14,27 @@ class Meta;
 class LibraryActivity : public Window
 {
 public:
-    LibraryActivity(Controller* c);
-    ~LibraryActivity();
+	LibraryActivity(Controller* c);
+	~LibraryActivity();
 
-    void draw();
+	void draw();
 
-    int evtKey(struct OcherKeyEvent*);
-    int evtMouse(struct OcherMouseEvent*);
+	int evtKey(struct OcherKeyEvent*);
+	int evtMouse(struct OcherMouseEvent*);
 
 protected:
-    void onAttached();
-    void onDetached();
+	void onAttached();
+	void onDetached();
 
-    Controller* m_controller;
-    UiBits& m_ui;
-    const clc::List* m_library;
+	Controller* m_controller;
+	UiBits& m_ui;
+	const clc::List* m_library;
 #define BOOKS_PER_PAGE 11
-    Rect* m_bookRects;
-    int itemHeight;
-    unsigned int m_booksPerPage;
-    unsigned int m_pages;
-    unsigned int m_pageNum;
+	Rect* m_bookRects;
+	int itemHeight;
+	unsigned int m_booksPerPage;
+	unsigned int m_pages;
+	unsigned int m_pageNum;
 };
 
 #endif

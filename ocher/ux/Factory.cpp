@@ -13,8 +13,8 @@ FreeType* g_ft;
 
 clc::List& getDrivers()
 {
-    static clc::List drivers;
-    return drivers;
+	static clc::List drivers;
+	return drivers;
 }
 
 
@@ -24,8 +24,8 @@ UiFactory::UiFactory()
 
 void UiFactory::populate()
 {
-    // Populate globals for ease of access
-    g_fb = uiFactory->getFrameBuffer();
-    g_ft = uiFactory->getFontEngine();
-    g_loop = new EventLoop;
+	// Populate globals for ease of access
+	g_fb = uiFactory->getFrameBuffer();
+	g_ft = uiFactory->getFontEngine();
+	g_loop = new EventLoop;
 }

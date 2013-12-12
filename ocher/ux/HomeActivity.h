@@ -12,25 +12,25 @@
 class HomeActivity : public Window
 {
 public:
-    HomeActivity(Controller* c);
-    ~HomeActivity();
+	HomeActivity(Controller* c);
+	~HomeActivity();
 
-    void draw();
+	void draw();
 
-    int evtKey(struct OcherKeyEvent*);
-    int evtMouse(struct OcherMouseEvent*);
+	int evtKey(struct OcherKeyEvent*);
+	int evtMouse(struct OcherMouseEvent*);
 
 protected:
-    void onAttached();
-    void onDetached();
+	void onAttached();
+	void onDetached();
 
-    Controller* m_controller;
+	Controller* m_controller;
 
-    float coverRatio;
+	float coverRatio;
 #define NUM_CLUSTER_BOOKS 5
-    Rect books[NUM_CLUSTER_BOOKS];
-    Rect shortlist[5];
-    Rect m_browseLabel;
+	Rect books[NUM_CLUSTER_BOOKS];
+	Rect shortlist[5];
+	Rect m_browseLabel;
 };
 
 #endif

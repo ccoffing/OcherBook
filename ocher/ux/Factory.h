@@ -15,10 +15,10 @@
 
 
 #define UX_DRIVER_REGISTER(driver) \
-    class Register##driver { \
-    public: \
-        Register##driver() { getDrivers().add(new UiFactory##driver); } \
-    } reg##driver
+	class Register##driver { \
+	public: \
+		Register##driver() { getDrivers().add(new UiFactory##driver); } \
+	} reg##driver
 
 class EventLoop;
 
@@ -35,26 +35,26 @@ extern FreeType* g_ft;
 class UiFactory
 {
 public:
-    UiFactory();
-    virtual ~UiFactory() {}
+	UiFactory();
+	virtual ~UiFactory() {}
 
-    /**
-     * Called after user options have been parsed.
-     * @return True iff sucessfully initialized, else output msg
-     */
-    virtual bool init() = 0;
+	/**
+	 * Called after user options have been parsed.
+	 * @return True iff sucessfully initialized, else output msg
+	 */
+	virtual bool init() = 0;
 
-    void populate();
+	void populate();
 
-    virtual void deinit() = 0;
+	virtual void deinit() = 0;
 
-    virtual const char* getName() = 0;
+	virtual const char* getName() = 0;
 
-    virtual Renderer* getRenderer() = 0;
+	virtual Renderer* getRenderer() = 0;
 
-    virtual FrameBuffer* getFrameBuffer() { return (FrameBuffer*)0; }
+	virtual FrameBuffer* getFrameBuffer() { return (FrameBuffer*)0; }
 
-    virtual FreeType* getFontEngine() { return (FreeType*)0; }
+	virtual FreeType* getFontEngine() { return (FreeType*)0; }
 };
 
 extern UiFactory* uiFactory;

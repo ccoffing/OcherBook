@@ -16,17 +16,17 @@
 #define PRINT_PROGRESS  printf("Testing %s::%s...\n", UnitTestSuite::GetSuiteName(), m_details.testName);fflush(stdout)
 
 #define REQUIRE_RESOURCES_DIR \
-    if (! resourcesDir) { \
-        printf("\tSpecify resources directory on command line; skipping test...\n"); \
-        return; \
-    }
+	if (! resourcesDir) { \
+		printf("\tSpecify resources directory on command line; skipping test...\n"); \
+		return; \
+	}
 
 void resetUnitTestLoggers()
 {
-    static clc::LogAppenderCFile console(stderr);
-    clc::Log::reset();
-    clc::Log::get("")->setLevel(clc::Log::Warn);
-    clc::Log::get("")->setAppender(&console);
+	static clc::LogAppenderCFile console(stderr);
+	clc::Log::reset();
+	clc::Log::get("")->setLevel(clc::Log::Warn);
+	clc::Log::get("")->setAppender(&console);
 }
 
 char* resourcesDir;
@@ -40,13 +40,13 @@ UiFactory* uiFactory;
 
 int main(int /*argc*/, char** argv)
 {
-    resetUnitTestLoggers();
-    resourcesDir = argv[1];
-    initDevice();
-    uiFactory = (UiFactory*)drivers.get(0);
-    uiFactory->init();
-    uiFactory->populate();
-    int r = UnitTest::RunAllTests();
-    uiFactory->deinit();
-    return r;
+	resetUnitTestLoggers();
+	resourcesDir = argv[1];
+	initDevice();
+	uiFactory = (UiFactory*)drivers.get(0);
+	uiFactory->init();
+	uiFactory->populate();
+	int r = UnitTest::RunAllTests();
+	uiFactory->deinit();
+	return r;
 }

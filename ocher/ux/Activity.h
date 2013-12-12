@@ -16,15 +16,15 @@
 class Controller;
 
 enum Activity {
-    ACTIVITY_BOOT,
-    ACTIVITY_SYNC,
-    ACTIVITY_HOME,
-    ACTIVITY_READ,
-    ACTIVITY_LIBRARY,
-    ACTIVITY_SETTINGS,
+	ACTIVITY_BOOT,
+	ACTIVITY_SYNC,
+	ACTIVITY_HOME,
+	ACTIVITY_READ,
+	ACTIVITY_LIBRARY,
+	ACTIVITY_SETTINGS,
 
-    ACTIVITY_PREVIOUS,
-    ACTIVITY_QUIT,
+	ACTIVITY_PREVIOUS,
+	ACTIVITY_QUIT,
 };
 
 
@@ -34,11 +34,11 @@ enum Activity {
 class UiBits
 {
 public:
-    UiBits() : m_systemBar(m_battery) {}
+	UiBits() : m_systemBar(m_battery) {}
 
-    Battery m_battery;
-    SystemBar m_systemBar;
-    NavBar m_navBar;
+	Battery m_battery;
+	SystemBar m_systemBar;
+	NavBar m_navBar;
 };
 
 #endif

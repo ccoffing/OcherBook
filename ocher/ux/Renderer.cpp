@@ -18,7 +18,7 @@ void Renderer::pushOp(uint16_t op)
 
 void Renderer::pushTextAttr(TextAttr attr, uint8_t arg)
 {
-    pushOp((uint16_t)attr | (arg<<8));
+	pushOp((uint16_t)attr | (arg<<8));
 }
 #endif
 

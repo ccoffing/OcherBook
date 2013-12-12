@@ -12,7 +12,7 @@ UX_DRIVER_REGISTER(FbSdl);
 
 
 UiFactoryFbSdl::UiFactoryFbSdl() :
-    UiFactoryFb()
+	UiFactoryFb()
 {
 }
 
@@ -22,20 +22,20 @@ UiFactoryFbSdl::~UiFactoryFbSdl()
 
 bool UiFactoryFbSdl::init()
 {
-    FbSdl* fbSdl = new FbSdl();
-    if (fbSdl->init()) {
-        m_fb = fbSdl;
-        if (UiFactoryFb::init()) {
-            return true;
-        }
-    }
-    delete fbSdl;
-    return false;
+	FbSdl* fbSdl = new FbSdl();
+	if (fbSdl->init()) {
+		m_fb = fbSdl;
+		if (UiFactoryFb::init()) {
+			return true;
+		}
+	}
+	delete fbSdl;
+	return false;
 }
 
 const char* UiFactoryFbSdl::getName()
 {
-    return "sdl";
+	return "sdl";
 }
 
 

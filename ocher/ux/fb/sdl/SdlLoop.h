@@ -21,30 +21,30 @@
 class SdlLoop : public clc::Thread
 {
 public:
-    SdlLoop();
-    ~SdlLoop();
+	SdlLoop();
+	~SdlLoop();
 
-    void setEventLoop(EventLoop* loop);
+	void setEventLoop(EventLoop* loop);
 
-    void start(clc::Monitor* startupMonitor);
-    void stop();
+	void start(clc::Monitor* startupMonitor);
+	void stop();
 
-    SDL_Surface* getScreen() { return m_screen; }
+	SDL_Surface* getScreen() { return m_screen; }
 
 protected:
-    SDL_Surface* init();
-    void run();
+	SDL_Surface* init();
+	void run();
 
-    clc::Lock m_evtLock;
-    clc::List m_evtQ;
-    int m_pipe[2];
-    struct ev_io m_evtWatcher;
-    static void fireEventsCb(struct ev_loop*, ev_io* watcher, int);
-    void fireEvents();
+	clc::Lock m_evtLock;
+	clc::List m_evtQ;
+	int m_pipe[2];
+	struct ev_io m_evtWatcher;
+	static void fireEventsCb(struct ev_loop*, ev_io* watcher, int);
+	void fireEvents();
 
-    EventLoop* m_loop;
-    clc::Monitor* m_startupMonitor;
-    SDL_Surface* m_screen;
+	EventLoop* m_loop;
+	clc::Monitor* m_startupMonitor;
+	SDL_Surface* m_screen;
 };
 
 #endif

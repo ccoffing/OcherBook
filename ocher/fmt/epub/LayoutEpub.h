@@ -14,15 +14,15 @@ class Epub;
 class LayoutEpub : public Layout
 {
 public:
-    LayoutEpub(Epub* epub) : m_epub(epub) {}
+	LayoutEpub(Epub* epub) : m_epub(epub) {}
 
-    void append(mxml_node_t* tree);
+	void append(mxml_node_t* tree);
 
 protected:
-    void processNode(mxml_node_t* node);
-    void processSiblings(mxml_node_t* node);
+	void processNode(mxml_node_t* node);
+	void processSiblings(mxml_node_t* node);
 
-    Epub* m_epub;
+	Epub* m_epub;
 };
 
 #endif

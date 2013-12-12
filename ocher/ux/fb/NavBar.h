@@ -12,10 +12,10 @@
 class NavBar : public Window
 {
 public:
-    NavBar();
+	NavBar();
 
 protected:
-    void drawContent(Rect*);
+	void drawContent(Rect*);
 };
 
 #endif

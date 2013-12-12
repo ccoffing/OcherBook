@@ -11,16 +11,16 @@
 class BrowseFd : public Browse
 {
 public:
-    BrowseFd();
-    ~BrowseFd() {}
+	BrowseFd();
+	~BrowseFd() {}
 
-    bool init();
-    Meta* browse(clc::List* meta);
-    void read(Meta* meta);
+	bool init();
+	Meta* browse(clc::List* meta);
+	void read(Meta* meta);
 
 protected:
-    int m_in;
-    int m_out;
+	int m_in;
+	int m_out;
 };
 
 #endif

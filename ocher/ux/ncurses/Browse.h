@@ -16,15 +16,15 @@
 class BrowseCurses : public Browse
 {
 public:
-    BrowseCurses();
-    ~BrowseCurses() {}
+	BrowseCurses();
+	~BrowseCurses() {}
 
-    bool init(CDKSCREEN* screen);
-    Meta* browse(clc::List* meta);
-    void read(Meta* meta);
+	bool init(CDKSCREEN* screen);
+	Meta* browse(clc::List* meta);
+	void read(Meta* meta);
 
 protected:
-    CDKSCREEN* m_screen;
+	CDKSCREEN* m_screen;
 };
 
 

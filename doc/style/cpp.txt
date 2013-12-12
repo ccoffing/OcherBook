@@ -23,26 +23,16 @@ Avoid throwing exceptions
 Formatting
 ==========
 
-4 space K&R
+Linux kernel coding style doc is a good start, except:
+- wider wrapping (100 cols)
+- spacing for type vs operators (see below)
+- naming (see below)
 
 Spacing helps denote difference between type and operator:
 ```c++
-    char* c1, c2;
-    Foo& ref = orig;
-    Obj* ptr = &obj;
-```
-
-No extraneous parens around return val:
-```c++
-    return 123;
-```
-
-No extraneous inner space padding around parens, but spaces around keywords and
-most operators:
-```c++
-    for (int i = 0; i < N; i++) {
-        ...
-    }
+char* c1, c2;
+Foo& ref = orig;
+Obj* ptr = &obj;
 ```
 
 

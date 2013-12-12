@@ -21,20 +21,20 @@ using namespace Gallant;
 class Filesystem
 {
 public:
-    Filesystem();
-    ~Filesystem();
+	Filesystem();
+	~Filesystem();
 
-    const char** m_libraries;
-    char* m_home;
-    char* m_settings;
+	const char** m_libraries;
+	char* m_home;
+	char* m_settings;
 
-    void initWatches();
-    void deinitWatches();
-    void fireEvents();
-    Signal2<const char*, const char*> dirChanged;
+	void initWatches();
+	void deinitWatches();
+	void fireEvents();
+	Signal2<const char*, const char*> dirChanged;
 
 protected:
-    int m_infd;
+	int m_infd;
 };
 
 #endif

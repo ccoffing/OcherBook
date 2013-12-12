@@ -12,20 +12,20 @@
 class Battery
 {
 public:
-    Battery();
+	Battery();
 
-    enum Status {
-        Charging,
-        Discharging,
-        Unknown
-    };
+	enum Status {
+		Charging,
+		Discharging,
+		Unknown
+	};
 
-    int readAll();      ///< @return 0 if all read, else -1
-    int readCapacity(); ///< @return 0 if read, else -1
-    int readStatus();   ///< @return 0 if read, else -1
+	int readAll();      ///< @return 0 if all read, else -1
+	int readCapacity(); ///< @return 0 if read, else -1
+	int readStatus();   ///< @return 0 if read, else -1
 
-    int m_percent;      ///< @return 0..100 or -1 if unknown
-    Status m_status;
+	int m_percent;      ///< @return 0..100 or -1 if unknown
+	Status m_status;
 };
 
 #endif

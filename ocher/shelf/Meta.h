@@ -12,19 +12,19 @@
 
 
 enum Encoding {
-    OCHER_ENC_UNKNOWN,
-    OCHER_ENC_UTF8,
-    OCHER_ENC_UTF16BE,
-    OCHER_ENC_UTF16LE,
-    OCHER_ENC_UTF32BE,
-    OCHER_ENC_UTF32LE,
+	OCHER_ENC_UNKNOWN,
+	OCHER_ENC_UTF8,
+	OCHER_ENC_UTF16BE,
+	OCHER_ENC_UTF16LE,
+	OCHER_ENC_UTF32BE,
+	OCHER_ENC_UTF32LE,
 };
 
 enum Fmt {
-    OCHER_FMT_UNKNOWN,
-    OCHER_FMT_EPUB,
-    OCHER_FMT_TEXT,
-    OCHER_FMT_HTML,
+	OCHER_FMT_UNKNOWN,
+	OCHER_FMT_EPUB,
+	OCHER_FMT_TEXT,
+	OCHER_FMT_HTML,
 };
 
 /**
@@ -33,21 +33,21 @@ enum Fmt {
 class BookRecord
 {
 public:
-    BookRecord() : activePage(0), touched(0), shortlist(0) {}
+	BookRecord() : activePage(0), touched(0), shortlist(0) {}
 
-    unsigned int activePage;  // TODO:  can't use page number; varies by device/settings
+	unsigned int activePage;  // TODO:  can't use page number; varies by device/settings
 
-    void touch();
-    time_t touched;
+	void touch();
+	time_t touched;
 
-    int shortlist;
+	int shortlist;
 
-    // TODO: tags
+	// TODO: tags
 
-    // TODO: dates
-    // TODO: highlights
-    // TODO: annotations
-    // TODO: notes
+	// TODO: dates
+	// TODO: highlights
+	// TODO: annotations
+	// TODO: notes
 };
 
 /**
@@ -60,27 +60,27 @@ public:
 class Meta
 {
 public:
-    Meta();
+	Meta();
 
-    static const char* fmtToStr(Fmt fmt);
+	static const char* fmtToStr(Fmt fmt);
 
-    Fmt format;
-    Encoding encoding;
+	Fmt format;
+	Encoding encoding;
 
-    clc::Buffer relPath;  // TODO: for now, full path
+	clc::Buffer relPath;  // TODO: for now, full path
 
-    clc::Buffer author;
-    clc::Buffer title;
-    clc::Buffer language;
+	clc::Buffer author;
+	clc::Buffer title;
+	clc::Buffer language;
 
-    clc::Buffer icon;
+	clc::Buffer icon;
 
-    Pagination m_pagination;
-    unsigned int pages; // is this even meaningful?
+	Pagination m_pagination;
+	unsigned int pages; // is this even meaningful?
 
-    BookRecord record;
+	BookRecord record;
 
-    unsigned int percentRead();
+	unsigned int percentRead();
 };
 
 void loadMeta(Meta* meta);

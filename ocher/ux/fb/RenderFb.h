@@ -16,28 +16,28 @@ class Pagination;
 class RenderFb : public Renderer
 {
 public:
-    RenderFb(FrameBuffer* fb);
+	RenderFb(FrameBuffer* fb);
 
-    bool init();
-    void deinit();
+	bool init();
+	void deinit();
 
-    int render(Pagination* pagination, unsigned int pageNum, bool doBlit);
+	int render(Pagination* pagination, unsigned int pageNum, bool doBlit);
 
 protected:
-    int outputWrapped(clc::Buffer* b, unsigned int strOffset, bool doBlit);
-    void applyAttrs();
+	int outputWrapped(clc::Buffer* b, unsigned int strOffset, bool doBlit);
+	void applyAttrs();
 
-    FontEngine m_fe;
-    FrameBuffer* m_fb;
-    int m_penX;
-    int m_penY;
+	FontEngine m_fe;
+	FrameBuffer* m_fb;
+	int m_penX;
+	int m_penY;
 
-    void pushAttrs();
-    void applyAttrs(int i);
-    void popAttrs();
+	void pushAttrs();
+	void applyAttrs(int i);
+	void popAttrs();
 
-    Attrs a[10];
-    int ai;
+	Attrs a[10];
+	int ai;
 };
 
 #endif

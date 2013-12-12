@@ -30,12 +30,12 @@ public:
 class CssParser
 {
 public:
-    CssRule* parseString(clc::Buffer &b);
-    //CssRule* parseFile(clc::Buffer &filename);
-    //parseUrl
-    //parseStyle
+	CssRule* parseString(clc::Buffer &b);
+	//CssRule* parseFile(clc::Buffer &filename);
+	//parseUrl
+	//parseStyle
 protected:
-    clc::Buffer parseElement();
+	clc::Buffer parseElement();
 };
 
 //CSSPageRule(selectorText=None, style=None, parentRule=None, parentStyleSheet=None, readonly=False)
@@ -43,9 +43,9 @@ protected:
 class CssStyleSheet
 {
 public:
-    // encoding
-    // rules
-    //
+	// encoding
+	// rules
+	//
 };
 
 

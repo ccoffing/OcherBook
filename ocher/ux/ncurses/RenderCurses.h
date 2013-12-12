@@ -15,32 +15,32 @@ class Pagination;
 class RenderCurses : public Renderer
 {
 public:
-    RenderCurses();
+	RenderCurses();
 
-    bool init(WINDOW* scr, CDKSCREEN* m_screen);
-    int render(Pagination* pagination, unsigned int pageNum, bool doBlit);
+	bool init(WINDOW* scr, CDKSCREEN* m_screen);
+	int render(Pagination* pagination, unsigned int pageNum, bool doBlit);
 
-    int outputWrapped(clc::Buffer* b, unsigned int strOffset, bool doBlit);
+	int outputWrapped(clc::Buffer* b, unsigned int strOffset, bool doBlit);
 
 protected:
-    WINDOW* m_scr;
-    CDKSCREEN* m_screen;
-    int m_width;
-    int m_height;
-    int m_x;
-    int m_y;
+	WINDOW* m_scr;
+	CDKSCREEN* m_screen;
+	int m_width;
+	int m_height;
+	int m_x;
+	int m_y;
 
-    void enableUl();
-    void disableUl();
-    void enableEm();
-    void disableEm();
+	void enableUl();
+	void disableUl();
+	void enableEm();
+	void disableEm();
 
-    void pushAttrs();
-    void applyAttrs(int i);
-    void popAttrs();
+	void pushAttrs();
+	void applyAttrs(int i);
+	void popAttrs();
 
-    Attrs a[10];
-    int ai;
+	Attrs a[10];
+	int ai;
 };
 
 #endif

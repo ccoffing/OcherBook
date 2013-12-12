@@ -15,17 +15,17 @@ class SyncActivityWork;
 class SyncActivity : public Window
 {
 public:
-    SyncActivity(Controller* c);
+	SyncActivity(Controller* c);
 
-    void draw();
+	void draw();
 
 protected:
-    void onAttached();
-    void onDetached();
+	void onAttached();
+	void onDetached();
 
-    Controller* m_controller;
-    SyncActivityWork* m_work;
-    Spinner m_spinner;
+	Controller* m_controller;
+	SyncActivityWork* m_work;
+	Spinner m_spinner;
 };
 
 #endif

@@ -11,7 +11,7 @@ UX_DRIVER_REGISTER(FbMx50);
 
 
 UiFactoryFbMx50::UiFactoryFbMx50() :
-    UiFactoryFb()
+	UiFactoryFb()
 {
 }
 
@@ -21,19 +21,19 @@ UiFactoryFbMx50::~UiFactoryFbMx50()
 
 bool UiFactoryFbMx50::init()
 {
-    Mx50Fb* fb = new Mx50Fb;
-    if (fb->init()) {
-        m_fb = fb;
-        if (UiFactoryFb::init()) {
-            return true;
-        }
-    }
-    delete fb;
-    return false;
+	Mx50Fb* fb = new Mx50Fb;
+	if (fb->init()) {
+		m_fb = fb;
+		if (UiFactoryFb::init()) {
+			return true;
+		}
+	}
+	delete fb;
+	return false;
 }
 
 const char* UiFactoryFbMx50::getName()
 {
-    return "kobo-mx50";
+	return "kobo-mx50";
 }
 

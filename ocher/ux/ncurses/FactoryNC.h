@@ -13,19 +13,19 @@
 class UiFactoryCurses : public UiFactory
 {
 public:
-    UiFactoryCurses();
-    virtual ~UiFactoryCurses() {}
+	UiFactoryCurses();
+	virtual ~UiFactoryCurses() {}
 
-    bool init();
-    void deinit();
+	bool init();
+	void deinit();
 
-    const char* getName();
-    Renderer* getRenderer();
+	const char* getName();
+	Renderer* getRenderer();
 
 protected:
-    RenderCurses* m_renderer;
-    WINDOW* m_scr;
-    CDKSCREEN* m_screen;
+	RenderCurses* m_renderer;
+	WINDOW* m_scr;
+	CDKSCREEN* m_screen;
 };
 
 #endif

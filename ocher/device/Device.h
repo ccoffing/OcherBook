@@ -17,21 +17,21 @@
 class Device
 {
 public:
-    clc::Buffer getVersion();
-    clc::Buffer getBuildDate();
+	clc::Buffer getVersion();
+	clc::Buffer getBuildDate();
 
-    clc::Buffer getMac();
-    clc::Buffer getIp();
+	clc::Buffer getMac();
+	clc::Buffer getIp();
 
-    void reboot() {}
+	void reboot() {}
 
-    /**
-     * Puts the device in a low power state until ??? TODO.
-     * Returns when awake.
-     */
-    void sleep();
+	/**
+	 * Puts the device in a low power state until ??? TODO.
+	 * Returns when awake.
+	 */
+	void sleep();
 
-    Filesystem fs;
+	Filesystem fs;
 };
 
 /**

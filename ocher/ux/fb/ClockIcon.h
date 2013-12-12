@@ -12,14 +12,14 @@
 class ClockIcon : public Widget
 {
 public:
-    ClockIcon(int x, int y);
+	ClockIcon(int x, int y);
 
-    void draw();
+	void draw();
 
-    void onActivate(bool active);
+	void onActivate(bool active);
 
 protected:
-    bool m_active;
+	bool m_active;
 };
 
 #endif

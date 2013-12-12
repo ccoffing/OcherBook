@@ -12,7 +12,7 @@
 
 Text::Text(const char* filename)
 {
-    clc::File f(filename);
-    f.readRest(m_text);
-    clc::Log::debug(LOG_NAME, "Loaded %lu bytes", (unsigned long)m_text.size());
+	clc::File f(filename);
+	f.readRest(m_text);
+	clc::Log::debug(LOG_NAME, "Loaded %lu bytes", (unsigned long)m_text.size());
 }

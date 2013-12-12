@@ -15,10 +15,10 @@ class Text;
 class LayoutText : public Layout
 {
 public:
-    LayoutText(Text* text);
+	LayoutText(Text* text);
 
 protected:
-    Text* m_text;
+	Text* m_text;
 };
 
 #endif

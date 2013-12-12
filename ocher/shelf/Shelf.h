@@ -18,18 +18,18 @@ class Meta;
 class GroupOfBooks
 {
 public:
-    virtual ~GroupOfBooks() {}
+	virtual ~GroupOfBooks() {}
 
-    void attach(GroupOfBooks* observer);
-    void detach(GroupOfBooks* observer);
-    void notify();
+	void attach(GroupOfBooks* observer);
+	void detach(GroupOfBooks* observer);
+	void notify();
 
-    // TODO: updateMetadata vs updateMembership ?
-    virtual void update(GroupOfBooks*) {}
-    virtual const clc::List* getList() const = 0;
+	// TODO: updateMetadata vs updateMembership ?
+	virtual void update(GroupOfBooks*) {}
+	virtual const clc::List* getList() const = 0;
 
 protected:
-    clc::List m_observers;
+	clc::List m_observers;
 };
 
 
@@ -39,24 +39,24 @@ protected:
 class Shelf : public GroupOfBooks
 {
 public:
-    Shelf();
-    ~Shelf();
+	Shelf();
+	~Shelf();
 
-    enum SortKeys {
-        ByAuthor,
-        By
-    };
+	enum SortKeys {
+		ByAuthor,
+		By
+	};
 
-    /**
-     * Shelves watch other GroupOfBooks and must implement update().
-     */
-    virtual void update(GroupOfBooks* changed) = 0;
+	/**
+	 * Shelves watch other GroupOfBooks and must implement update().
+	 */
+	virtual void update(GroupOfBooks* changed) = 0;
 
 #if 0
-    addFilterTag();
-    removeFilterTag();
-    sort();
-    clearSort();
+	addFilterTag();
+	removeFilterTag();
+	sort();
+	clearSort();
 #endif
 };
 
@@ -68,19 +68,19 @@ public:
 class Library : public GroupOfBooks
 {
 public:
-    Library() {}
-    ~Library();
+	Library() {}
+	~Library();
 
-    /**
-     * Adds the metadata to the Library.  Ownership is transferred.
-     * Caller should call notify() when done adding.
-     */
-    void add(Meta*);
+	/**
+	 * Adds the metadata to the Library.  Ownership is transferred.
+	 * Caller should call notify() when done adding.
+	 */
+	void add(Meta*);
 
-    const clc::List* getList() const { return &m_meta; }
+	const clc::List* getList() const { return &m_meta; }
 
 protected:
-    clc::List m_meta;
+	clc::List m_meta;
 };
 
 
@@ -89,15 +89,15 @@ protected:
 class ShortList : public Shelf
 {
 public:
-    ShortList(GroupOfBooks* base) : m_base(base) { m_base->attach(this); }
-    ~ShortList() { m_base->detach(this); }
+	ShortList(GroupOfBooks* base) : m_base(base) { m_base->attach(this); }
+	~ShortList() { m_base->detach(this); }
 
-    void update(GroupOfBooks* changed);
-    const clc::List* getList() const { return &m_meta; }
+	void update(GroupOfBooks* changed);
+	const clc::List* getList() const { return &m_meta; }
 
 protected:
-    clc::List m_meta;
-    GroupOfBooks* m_base;
+	clc::List m_meta;
+	GroupOfBooks* m_base;
 };
 
 #endif

@@ -8,18 +8,18 @@
 
 
 NavBar::NavBar() :
-    Window(0, g_fb->height()-50, g_fb->width(), 50)
+	Window(0, g_fb->height()-50, g_fb->width(), 50)
 {
 }
 
 void NavBar::drawContent(Rect* pos)
 {
-    m_rect.y++;
-    m_rect.h--;
-    g_fb->setFg(0xff, 0xff, 0xff);
-    g_fb->fillRect(&m_rect);
-    m_rect.y--;
-    m_rect.h++;
-    g_fb->setFg(0, 0, 0);
-    g_fb->hline(m_rect.x, m_rect.y, m_rect.x+m_rect.w-1);
+	m_rect.y++;
+	m_rect.h--;
+	g_fb->setFg(0xff, 0xff, 0xff);
+	g_fb->fillRect(&m_rect);
+	m_rect.y--;
+	m_rect.h++;
+	g_fb->setFg(0, 0, 0);
+	g_fb->hline(m_rect.x, m_rect.y, m_rect.x+m_rect.w-1);
 }

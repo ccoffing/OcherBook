@@ -12,13 +12,13 @@
 class SettingsActivity : public Window
 {
 public:
-    SettingsActivity(Controller* c);
+	SettingsActivity(Controller* c);
 
 protected:
-    void onAttached();
-    void onDetached();
+	void onAttached();
+	void onDetached();
 
-    Controller* m_controller;
+	Controller* m_controller;
 };
 
 #endif

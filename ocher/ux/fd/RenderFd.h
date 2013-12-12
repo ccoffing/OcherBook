@@ -12,34 +12,34 @@
 class RendererFd : public Renderer
 {
 public:
-    RendererFd();
+	RendererFd();
 
-    bool init();
-    int render(Pagination* pagination, unsigned int pageNum, bool doBlit);
+	bool init();
+	int render(Pagination* pagination, unsigned int pageNum, bool doBlit);
 
-    int outputWrapped(clc::Buffer* b, unsigned int strOffset, bool doBlit);
+	int outputWrapped(clc::Buffer* b, unsigned int strOffset, bool doBlit);
 
 protected:
-    int m_isTty;
+	int m_isTty;
 
-    int m_fd;
-    int m_width;
-    int m_height;
-    int m_x;
-    int m_y;
+	int m_fd;
+	int m_width;
+	int m_height;
+	int m_x;
+	int m_y;
 
-    void clearScreen();
-    void enableUl();
-    void disableUl();
-    void enableEm();
-    void disableEm();
+	void clearScreen();
+	void enableUl();
+	void disableUl();
+	void enableEm();
+	void disableEm();
 
-    void pushAttrs();
-    void applyAttrs(int i);
-    void popAttrs();
+	void pushAttrs();
+	void applyAttrs(int i);
+	void popAttrs();
 
-    Attrs a[10];
-    int ai;
+	Attrs a[10];
+	int ai;
 };
 
 #endif

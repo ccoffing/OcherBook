@@ -15,16 +15,16 @@
 class SystemBar : public Window
 {
 public:
-    SystemBar(Battery& battery);
+	SystemBar(Battery& battery);
 
-    bool m_sep;
-    clc::Buffer m_title;
+	bool m_sep;
+	clc::Buffer m_title;
 
 protected:
-    void drawContent(Rect*);
+	void drawContent(Rect*);
 
-    BatteryIcon m_batteryIcon;
-    ClockIcon m_clockIcon;
+	BatteryIcon m_batteryIcon;
+	ClockIcon m_clockIcon;
 };
 
 #endif

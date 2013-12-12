@@ -30,8 +30,8 @@ using namespace Gallant;
 
 struct OcherKeyEvent
 {
-    unsigned int subtype;
-    uint32_t key;
+	unsigned int subtype;
+	uint32_t key;
 };
 
 #define OEVT_MOUSE1_CLICKED     0
@@ -50,11 +50,11 @@ struct OcherKeyEvent
 
 struct OcherMouseEvent
 {
-    unsigned int subtype;  // up, down, ...
-    int buttons;
-    uint16_t x;
-    uint16_t y;
-    uint16_t pressure;
+	unsigned int subtype;  // up, down, ...
+	int buttons;
+	uint16_t x;
+	uint16_t y;
+	uint16_t pressure;
 };
 
 #define OEVT_DEVICE_SUSPEND     0
@@ -63,7 +63,7 @@ struct OcherMouseEvent
 
 struct OcherDeviceEvent
 {
-    unsigned int subtype;
+	unsigned int subtype;
 };
 
 #define OEVT_APP_ACTIVATE       0
@@ -72,7 +72,7 @@ struct OcherDeviceEvent
 
 struct OcherAppEvent
 {
-    unsigned int subtype;
+	unsigned int subtype;
 };
 
 #define OEVT_NONE               0
@@ -85,32 +85,32 @@ struct OcherAppEvent
 // TODO: timestamp
 struct OcherEvent
 {
-    OcherEvent() : type(OEVT_NONE) {}
-    uint8_t type;
-    union {
-        struct OcherKeyEvent key;
-        struct OcherMouseEvent mouse;
-        struct OcherDeviceEvent device;
-        struct OcherAppEvent app;
-    };
+	OcherEvent() : type(OEVT_NONE) {}
+	uint8_t type;
+	union {
+		struct OcherKeyEvent key;
+		struct OcherMouseEvent mouse;
+		struct OcherDeviceEvent device;
+		struct OcherAppEvent app;
+	};
 };
 
 class EventLoop
 {
 public:
-    EventLoop();
-    ~EventLoop();
+	EventLoop();
+	~EventLoop();
 
-    int run();
-    void stop();
-    // flush(timestamp)
+	int run();
+	void stop();
+	// flush(timestamp)
 
-    Signal1<struct OcherKeyEvent*> keyEvent;
-    Signal1<struct OcherMouseEvent*> mouseEvent;
-    Signal1<struct OcherAppEvent*> appEvent;
-    Signal1<struct OcherDeviceEvent*> deviceEvent;
+	Signal1<struct OcherKeyEvent*> keyEvent;
+	Signal1<struct OcherMouseEvent*> mouseEvent;
+	Signal1<struct OcherAppEvent*> appEvent;
+	Signal1<struct OcherDeviceEvent*> deviceEvent;
 
-    struct ev_loop* evLoop;
+	struct ev_loop* evLoop;
 };
 
 
@@ -121,30 +121,30 @@ public:
 class EventWork : public clc::Thread
 {
 public:
-    /**
-     * Derived class must call start().
-     */
-    EventWork(EventLoop* loop);
-    virtual ~EventWork();
+	/**
+	 * Derived class must call start().
+	 */
+	EventWork(EventLoop* loop);
+	virtual ~EventWork();
 
 protected:
-    void run();
+	void run();
 
-    /**
-     * Do your heavy work here.
-     */
-    virtual void work() = 0;
+	/**
+	 * Do your heavy work here.
+	 */
+	virtual void work() = 0;
 
-    /**
-     * Runs on the original (event) thread.  Useful place to emit signals to let a state machine
-     * progress.
-     * @todo progress callback
-     */
-    virtual void notify() {}
+	/**
+	 * Runs on the original (event) thread.  Useful place to emit signals to let a state machine
+	 * progress.
+	 * @todo progress callback
+	 */
+	virtual void notify() {}
 
-    static void notifyCb(EV_P_ ev_async* w, int revents);
-    ev_async m_async;
-    EventLoop* m_loop;
+	static void notifyCb(EV_P_ ev_async* w, int revents);
+	ev_async m_async;
+	EventLoop* m_loop;
 };
 
 #endif

@@ -13,11 +13,11 @@
 class UiFactoryFbSdl : public UiFactoryFb
 {
 public:
-    UiFactoryFbSdl();
-    ~UiFactoryFbSdl();
+	UiFactoryFbSdl();
+	~UiFactoryFbSdl();
 
-    bool init();
-    const char* getName();
+	bool init();
+	const char* getName();
 };
 
 #endif

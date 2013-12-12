@@ -13,21 +13,21 @@
 class BootActivity : public Window
 {
 public:
-    BootActivity(Controller* c);
-    ~BootActivity();
+	BootActivity(Controller* c);
+	~BootActivity();
 
-    void draw();
+	void draw();
 
-    int evtMouse(struct OcherMouseEvent*);
+	int evtMouse(struct OcherMouseEvent*);
 
 protected:
-    void onAttached();
-    void onDetached();
+	void onAttached();
+	void onDetached();
 
-    Controller* m_controller;
+	Controller* m_controller;
 
-    void highlight(int i);
-    Rect apps[2];
+	void highlight(int i);
+	Rect apps[2];
 };
 
 #endif

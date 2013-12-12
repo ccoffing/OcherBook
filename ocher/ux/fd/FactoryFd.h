@@ -13,16 +13,16 @@
 class UiFactoryFd : public UiFactory
 {
 public:
-    UiFactoryFd();
-    virtual ~UiFactoryFd() {}
+	UiFactoryFd();
+	virtual ~UiFactoryFd() {}
 
-    bool init();
-    void deinit();
-    const char* getName();
-    Renderer* getRenderer();
+	bool init();
+	void deinit();
+	const char* getName();
+	Renderer* getRenderer();
 
 protected:
-    RendererFd* m_renderer;
+	RendererFd* m_renderer;
 };
 
 #endif

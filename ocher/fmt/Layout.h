@@ -30,87 +30,87 @@
 class Layout
 {
 public:
-    enum Op {
-        OpPushTextAttr = 0,
-        OpPushLineAttr = 1,
-        OpCmd          = 2,
-        OpSpacing      = 3,
-        OpImage        = 4,
-    };
+	enum Op {
+		OpPushTextAttr = 0,
+		OpPushLineAttr = 1,
+		OpCmd          = 2,
+		OpSpacing      = 3,
+		OpImage        = 4,
+	};
 
-    enum TextAttr {
-        AttrBold      = 0,  ///< arg: future:
-        AttrUnderline = 1,  ///< arg: future: double, strikethrough, etc
-        AttrItalics   = 2,  ///< arg: future: slant
-        AttrSizeRel   = 3,  ///< arg: -127 - +128 pts
-        AttrSizeAbs   = 4,  ///< arg: -127 - +128 pts
-        AttrFont      = 5,
-        AttrPre       = 6,
-    };
+	enum TextAttr {
+		AttrBold      = 0,  ///< arg: future:
+		AttrUnderline = 1,  ///< arg: future: double, strikethrough, etc
+		AttrItalics   = 2,  ///< arg: future: slant
+		AttrSizeRel   = 3,  ///< arg: -127 - +128 pts
+		AttrSizeAbs   = 4,  ///< arg: -127 - +128 pts
+		AttrFont      = 5,
+		AttrPre       = 6,
+	};
 
-    enum LineAttr {
-        LineJustifyLeft   = 0,
-        LineJustifyCenter = 1,
-        LineJustifyFull   = 2,
-        LineJustifyRight  = 4,
-    };
+	enum LineAttr {
+		LineJustifyLeft   = 0,
+		LineJustifyCenter = 1,
+		LineJustifyFull   = 2,
+		LineJustifyRight  = 4,
+	};
 
-    enum Cmd {
-        CmdPopAttr,            ///< arg: # attrs to pop (0==1)
-        CmdOutputStr,          ///< followed by ptr to Buffer
-        CmdForcePage,          ///< optionally set new title
-    };
+	enum Cmd {
+		CmdPopAttr,            ///< arg: # attrs to pop (0==1)
+		CmdOutputStr,          ///< followed by ptr to Buffer
+		CmdForcePage,          ///< optionally set new title
+	};
 
-    enum Spacing {
-        Vert,
-        Horiz,
-    };
+	enum Spacing {
+		Vert,
+		Horiz,
+	};
 
-    enum Image {
-        // href
-        // inline vs anchored
-        // hr
-    };
+	enum Image {
+		// href
+		// inline vs anchored
+		// hr
+	};
 
-    Layout();
-    ~Layout();
+	Layout();
+	~Layout();
 
-    //virtual void append(...) = 0;
+	//virtual void append(...) = 0;
 
-    /** Finishes and returns the laid-out internal buffer.
-     * @todo terrible API; buffer holds pointers, freed by the class
-     */
-    clc::Buffer unlock();
+	/** Finishes and returns the laid-out internal buffer.
+	 * @todo terrible API; buffer holds pointers, freed by the class
+	 */
+	clc::Buffer unlock();
 
 protected:
-    void push(unsigned int opType, unsigned int op, unsigned int arg);
-    void pushPtr(void* ptr);
+	void push(unsigned int opType, unsigned int op, unsigned int arg);
+	void pushPtr(void* ptr);
 
-    void pushTextAttr(TextAttr attr, uint8_t arg);
-    void popTextAttr(unsigned int n=1);
-    void pushLineAttr(LineAttr attr, uint8_t arg);
-    void popLineAttr(unsigned int n=1);
+	void pushTextAttr(TextAttr attr, uint8_t arg);
+	void popTextAttr(unsigned int n=1);
+	void pushLineAttr(LineAttr attr, uint8_t arg);
+	void popLineAttr(unsigned int n=1);
 
-    void _outputChar(char c);
-    void outputChar(char c);
-    void outputNl();
-    void outputBr();
-    void flushText();
-    void outputPageBreak();
+	void _outputChar(char c);
+	void outputChar(char c);
+	void outputNl();
+	void outputBr();
+	void flushText();
+	void outputPageBreak();
 
-    /** Ensure m_data can hold n additional bytes */
-    char* checkAlloc(unsigned int n);
+	/** Ensure m_data can hold n additional bytes */
+	char* checkAlloc(unsigned int n);
 
-    clc::Buffer m_data;
-    unsigned int m_dataLen;
+	clc::Buffer m_data;
+	unsigned int m_dataLen;
 
-    int nl;
-    int ws;
-    int pre;
-    clc::Buffer* m_text;
-    unsigned int m_textLen;
+	int nl;
+	int ws;
+	int pre;
+	clc::Buffer* m_text;
+	unsigned int m_textLen;
 
-    static const unsigned int chunk = 1024;
+	static const unsigned int chunk = 1024;
 };
 
 #endif

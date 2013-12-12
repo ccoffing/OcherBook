@@ -19,44 +19,44 @@ class PowerSaver;
 class Context
 {
 public:
-    Context() : shortList(&library), selected(0) {}
-    Library library;
-    ShortList shortList;
+	Context() : shortList(&library), selected(0) {}
+	Library library;
+	ShortList shortList;
 
-    Meta* selected;
+	Meta* selected;
 };
 
 class Controller
 {
 public:
-    Controller();
-    ~Controller();
+	Controller();
+	~Controller();
 
-    void onDirChanged(const char* dir, const char* file);
-    void onWantToSleep();
-    void onAppEvent(struct OcherAppEvent* evt);
+	void onDirChanged(const char* dir, const char* file);
+	void onWantToSleep();
+	void onAppEvent(struct OcherAppEvent* evt);
 
-    void run(Activity a);
-    void setNextActivity(Activity a);
+	void run(Activity a);
+	void setNextActivity(Activity a);
 
-    Context ctx;
-    UiBits ui;
+	Context ctx;
+	UiBits ui;
 
 protected:
-    void detachCurrent();
-    void attachCurrent();
+	void detachCurrent();
+	void attachCurrent();
 
-    Screen m_screen;
-    Activity m_activity;
-    Window* m_activityPanel;
+	Screen m_screen;
+	Activity m_activity;
+	Window* m_activityPanel;
 
-    HomeActivity m_homeActivity;
-    LibraryActivity m_libraryActivity;
-    ReadActivity m_readActivity;
-    SettingsActivity m_settingsActivity;
-    SyncActivity m_syncActivity;
-    BootActivity m_bootActivity;
-    PowerSaver* m_powerSaver;
+	HomeActivity m_homeActivity;
+	LibraryActivity m_libraryActivity;
+	ReadActivity m_readActivity;
+	SettingsActivity m_settingsActivity;
+	SyncActivity m_syncActivity;
+	BootActivity m_bootActivity;
+	PowerSaver* m_powerSaver;
 };
 
 #endif

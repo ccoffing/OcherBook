@@ -12,10 +12,10 @@
 class Text : public Format
 {
 public:
-    Text(const char* filename);
-    virtual ~Text() {}
+	Text(const char* filename);
+	virtual ~Text() {}
 
-    clc::Buffer m_text;
+	clc::Buffer m_text;
 };
 
 #endif

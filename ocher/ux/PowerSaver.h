@@ -18,35 +18,35 @@ class Device;
 class PowerSaver : public Window
 {
 public:
-    PowerSaver();
+	PowerSaver();
 
-    void setEventLoop(EventLoop* loop);
-    void setDevice(Device* device);
-    void setTimeout(unsigned int seconds);
+	void setEventLoop(EventLoop* loop);
+	void setDevice(Device* device);
+	void setTimeout(unsigned int seconds);
 
-    Signal0<> wantToSleep;
+	Signal0<> wantToSleep;
 
-    void sleep();
+	void sleep();
 
-    void onAttached();
-    void onDetached();
+	void onAttached();
+	void onDetached();
 
 protected:
-    void resetTimeout();
+	void resetTimeout();
 
-    static void timeoutCb(EV_P_ ev_timer* w, int revents);
-    void timeout();
+	static void timeoutCb(EV_P_ ev_timer* w, int revents);
+	void timeout();
 
-    void onMouseEvent(struct OcherMouseEvent* evt);
-    void onKeyEvent(struct OcherKeyEvent* evt);
-    void onAppEvent(struct OcherAppEvent* evt);
-    void onDeviceEvent(struct OcherDeviceEvent* evt);
+	void onMouseEvent(struct OcherMouseEvent* evt);
+	void onKeyEvent(struct OcherKeyEvent* evt);
+	void onAppEvent(struct OcherAppEvent* evt);
+	void onDeviceEvent(struct OcherDeviceEvent* evt);
 
-    EventLoop* m_loop;
-    ev_timer m_timer;
-    unsigned int m_seconds;
+	EventLoop* m_loop;
+	ev_timer m_timer;
+	unsigned int m_seconds;
 
-    Device* m_device;
+	Device* m_device;
 };
 
 #endif

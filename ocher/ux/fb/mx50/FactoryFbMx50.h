@@ -13,11 +13,11 @@
 class UiFactoryFbMx50 : public UiFactoryFb
 {
 public:
-    UiFactoryFbMx50();
-    ~UiFactoryFbMx50();
+	UiFactoryFbMx50();
+	~UiFactoryFbMx50();
 
-    bool init();
-    const char* getName();
+	bool init();
+	const char* getName();
 };
 
 #endif
