@@ -103,7 +103,9 @@ public:
 
 	int run();
 	void stop();
-	// flush(timestamp)
+	/** Defines a new epoch; events timestamped prior to this are silently
+	 * dropped. */
+	void setEpoch();
 
 	Signal1<struct OcherKeyEvent*> keyEvent;
 	Signal1<struct OcherMouseEvent*> mouseEvent;
@@ -111,6 +113,8 @@ public:
 	Signal1<struct OcherDeviceEvent*> deviceEvent;
 
 	struct ev_loop* evLoop;
+
+	uint32_t m_epoch;
 };
 
 

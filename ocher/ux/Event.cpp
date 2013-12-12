@@ -11,9 +11,10 @@
 #define LOG_NAME "ocher.evt"
 
 
-EventLoop::EventLoop()
+EventLoop::EventLoop() :
+	evLoop(EV_DEFAULT),
+	m_epoch(0)
 {
-	evLoop = EV_DEFAULT;
 }
 
 EventLoop::~EventLoop()
@@ -32,6 +33,11 @@ int EventLoop::run()
 void EventLoop::stop()
 {
 	ev_break(evLoop, EVBREAK_ALL);
+}
+
+void EventLoop::setEpoch()
+{
+	/* TODO m_epoch = SDL_GetTick() */
 }
 
 EventWork::EventWork(EventLoop* loop) :
