@@ -12,7 +12,8 @@ To get the code:
     git submodule init
     git submodule update
 
-To get started, look in the doc directory, and/or "make help".
+To get started, look in the doc directory, and/or try something like:
+    mkdir build; cd build; cmake ..
 
 To see what platforms are supported and to what degree, look in doc/platforms/.
 
