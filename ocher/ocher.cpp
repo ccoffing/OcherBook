@@ -79,7 +79,7 @@ void usage(const char* msg)
 {
 	printf(
 		"OcherBook  Copyright (C) 2012 Chuck Coffing  <clc@alum.mit.edu>\n"
-		"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+		"Redistribution permitted under BSD 2-clause license\n"
 		"\n");
 	if (msg) {
 		printf("%s\n\n", msg);
