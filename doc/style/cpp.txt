@@ -65,6 +65,6 @@ Headers
 
 System headers are <>, local headers are "".
 
+Includes should be ordered "most local first", to more quickly expose missing includes.
+
 Include guards should be canonicalized form of the path.  Internal to the header, never external.
-
-

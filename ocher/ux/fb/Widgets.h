@@ -8,7 +8,7 @@
 
 #include <ev.h>
 #include "clc/data/List.h"
-#include "clc/data//Buffer.h"
+#include "clc/data/Buffer.h"
 #include "ocher/ux/fb/FrameBuffer.h"
 #include "ocher/ux/Event.h"
 
@@ -19,14 +19,18 @@
 
 class Widget;
 
+// TODO:  This goes into ActivityFb (and/or UxControllerFb)
+#if 0
 /**
  * Represents the drawing area of a FrameBuffer and interacts with an EventLoop.
+ *
+ * TODO does this go to UxControllerFb?
  */
-class Screen
+class FbScreen : public Screen
 {
 public:
-	Screen();
-	~Screen();
+	FbScreen();
+	~FbScreen();
 
 	void setFrameBuffer(FrameBuffer* fb);
 	void setEventLoop(EventLoop* loop);
@@ -34,19 +38,19 @@ public:
 	/**
 	 * Adds a child (transfers ownership).
 	 */
-	void addChild(Widget* child);
+	void addChild(Activity* child);
 
 	/**
 	 * Adds a child (does not transfer ownership).
 	 */
-	void addChild(Widget& child);
+//	void addChild(Widget& child);
 
-	void removeChild(Widget* child);
+	void removeChild(Activity* child);
 
 	void onMouseEvent(struct OcherMouseEvent*);
 	void onKeyEvent(struct OcherKeyEvent*);
 
-	static EventLoop* m_loop;
+	EventLoop* m_loop;
 
 protected:
 	/**
@@ -69,6 +73,7 @@ protected:
 	Rect m_rect;
 	clc::List m_children;
 };
+#endif
 
 
 /**
@@ -132,6 +137,7 @@ public:
 	virtual void onDetached() {}
 
 protected:
+	FrameBuffer* m_fb;
 	Widget* m_parent;
 	clc::List m_children;
 	// TODO focus
@@ -205,7 +211,7 @@ class Menu : public Widget
 class Spinner : public Widget
 {
 public:
-	Spinner();
+	Spinner(EventLoop* loop);
 	Spinner(int x, int y, unsigned int w, unsigned int h);
 	~Spinner();
 	void start();
@@ -218,6 +224,7 @@ protected:
 	unsigned int m_delayMs;
 
 	static void timeoutCb(EV_P_ ev_timer* w, int revents);
+	EventLoop* m_loop;
 	ev_timer m_timer;
 };
 

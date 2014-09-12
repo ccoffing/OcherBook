@@ -27,8 +27,7 @@ UnzipCache::~UnzipCache()
 
 void UnzipCache::newCache()
 {
-	clc::Buffer rootName(".");
-	m_root = new TreeDirectory(rootName);
+	m_root = new TreeDirectory(".");
 }
 
 void UnzipCache::clearCache()

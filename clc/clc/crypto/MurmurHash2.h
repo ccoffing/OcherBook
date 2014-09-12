@@ -2,7 +2,21 @@
 #define LIBCLC_HASH_H
 
 /** @file
- *  Murmur2 hash
+ *  MurmurHash2 is a fast public-domain hash
+ *
+ *  MurmurHash2
+ *  @author Austin Appleby
+ *  @sa http://murmurhash.googlepages.com
+ *
+ *  Requirements when selecting a hash:
+ *   - Fast
+ *     (murmur is 10% faster than jenkins lookup3; 5x faster than SHA1)
+ *   - Small code size; prefer no lookup tables
+ *     (murmur can be as small as 52 bytes)
+ *   - Excellent distribution, since may be "hashing" a single 4-byte pointer
+ *     (http://murmurhash.googlepages.com/avalanche)
+ *  Non-requirements:
+ *   - Deterministic results across different platforms
  */
 
 #include <stdint.h>

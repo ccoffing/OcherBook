@@ -8,37 +8,28 @@
 
 #include "clc/data/Buffer.h"
 
-#include "ocher/device/Filesystem.h"
-
-
 /**
  * Represents the physical e-reader device.
  */
 class Device
 {
 public:
+	virtual ~Device() {}
+
 	clc::Buffer getVersion();
 	clc::Buffer getBuildDate();
 
 	clc::Buffer getMac();
 	clc::Buffer getIp();
 
-	void reboot() {}
+	virtual void reboot() {}
+	virtual void shutdown() {}
 
 	/**
 	 * Puts the device in a low power state until ??? TODO.
 	 * Returns when awake.
 	 */
-	void sleep();
-
-	Filesystem fs;
+	virtual void sleep();
 };
-
-/**
- * The device singleton
- */
-extern Device* g_device;
-
-void initDevice();
 
 #endif

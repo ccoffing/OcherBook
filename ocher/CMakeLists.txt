@@ -1,9 +1,10 @@
 # TODO get_propery INCLUDE_DIRECTORIES of various third_party dirs
 
+option(UX_FD "")
+
 include_directories(
 	${ROOT_DIR}
 	${ROOT_DIR}/clc
-	${MXML_INCLUDE_DIR}
 	${ZLIB_INCLUDE_DIR}
 	${LIBEV_INCLUDE_DIR}
 	${FREETYPE_INCLUDE_DIR}
@@ -12,104 +13,133 @@ include_directories(
 if(OCHER_KOBO)
 	include_directories(${CMAKE_SOURCE_DIR}/linux)
 endif()
-if(OCHER_SDL)
+if(OCHER_SDL OR OCHER_UI_CDK)
 	include_directories(/usr/local/include)
 	link_directories(/usr/local/lib)
 endif()
-
-if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-	add_definitions(-DCLC_LOG_LEVEL=5)
-else()
-	add_definitions(-DCLC_LOG_LEVEL=2)
+if(OCHER_EPUB)
+	include_directories(
+		${HUBBUB_INC_DIR}
+		${LIBCSS_INC_DIR}
+		${WAPCAPLET_INC_DIR}
+		${PARSERUTILS_INC_DIR}
+		${MXML_INCLUDE_DIR}
+		)
 endif()
 
-list(APPEND TESTS
-	test/OcherTest.cpp
-	)
-
-list(APPEND SOURCES
-	fmt/Layout.cpp
+list(APPEND LIB_SOURCES
+	#ux/fd/BrowseFd.cpp
+	#ux/fd/FactoryFd.cpp
+	#ux/fd/RendererFd.cpp
+	Container.cpp
+	device/Battery.cpp
+	device/Device.cpp
+	device/Filesystem.cpp
 	fmt/Format.cpp
+	fmt/Layout.cpp
 	fmt/minizip/ioapi.c
 	fmt/minizip/unzip.c
-	#ux/fd/BrowseFd.cpp
-	#ux/fd/RenderFd.cpp
-	#ux/fd/FactoryFd.cpp
-	ux/Renderer.cpp
-	ux/LibraryActivity.cpp
-	ux/SettingsActivity.cpp
-	ux/BootActivity.cpp
-	ux/Activity.cpp
-	ux/PowerSaver.cpp
-	ux/Pagination.cpp
-	ux/fb/RenderFb.cpp
-	ux/fb/FreeType.cpp
-	ux/fb/Widgets.cpp
-	ux/fb/ClockIcon.cpp
-	ux/fb/RleBitmap.cpp
-	ux/fb/BatteryIcon.cpp
-	ux/fb/FactoryFb.cpp
-	ux/fb/NavBar.cpp
-	ux/fb/FontEngine.cpp
-	ux/fb/SystemBar.cpp
-	ux/fb/FrameBuffer.cpp
-	ux/ReadActivity.cpp
-	ux/HomeActivity.cpp
-	ux/SyncActivity.cpp
-	ux/Event.cpp
-	ux/Factory.cpp
-	ux/Controller.cpp
-	settings/Settings.cpp
-	shelf/Shelf.cpp
-	shelf/Meta.cpp
 	resources/Bitmaps.cpp
-	ocher.cpp
-	device/Device.cpp
-	device/Battery.cpp
-	device/Filesystem.cpp
+	settings/Settings.cpp
+	shelf/Meta.cpp
+	shelf/Shelf.cpp
+	ux/Activity.cpp
+	ux/Controller.cpp
+	ux/Event.cpp
+	ux/Pagination.cpp
+	ux/PowerSaver.cpp
+	ux/Renderer.cpp
+	ux/fb/BatteryIcon.cpp
+	ux/fb/BootActivityFb.cpp
+	ux/fb/ClockIcon.cpp
+	ux/fb/FontEngine.cpp
+	ux/fb/FrameBuffer.cpp
+	ux/fb/FreeType.cpp
+	ux/fb/HomeActivityFb.cpp
+	ux/fb/LibraryActivityFb.cpp
+	ux/fb/NavBar.cpp
+	ux/fb/ReadActivityFb.cpp
+	ux/fb/RendererFb.cpp
+	ux/fb/RleBitmap.cpp
+	ux/fb/UxControllerFb.cpp
+	ux/fb/SettingsActivityFb.cpp
+	ux/fb/SleepActivityFb.cpp
+	ux/fb/SyncActivityFb.cpp
+	ux/fb/SystemBar.cpp
+	ux/fb/Widgets.cpp
 	)
-if(OCHER_UI_NCURSES)
-	list(APPEND SOURCES
-		ux/ncurses/Browse.cpp
-		ux/ncurses/FactoryNC.cpp
-		ux/ncurses/RenderCurses.cpp
+if(OCHER_UI_CDK)
+	list(APPEND LIB_SOURCES
+		ux/cdk/BrowseActivityCdk.cpp
+		ux/cdk/RendererCdk.cpp
 		)
+	set(UX_CDK TRUE)
 endif()
 if(OCHER_KOBO)
-	list(APPEND SOURCES
-		ux/fb/mx50/fb.cpp
-		ux/fb/mx50/FactoryFbMx50.cpp
+	list(APPEND LIB_SOURCES
+		ux/fb/mx50/FrameBufferMx50.cpp
 		device/kobo/KoboEvents.cpp
 		)
+	set(UX_FB TRUE)
 endif()
 if(OCHER_SDL)
-	list(APPEND SOURCES
-		ux/fb/sdl/FactoryFbSdl.cpp
-		ux/fb/sdl/FbSdl.cpp
-		ux/fb/sdl/SdlLoop.cpp
+	list(APPEND LIB_SOURCES
+		ux/fb/sdl/FrameBufferSdl.cpp
+		ux/fb/sdl/SdlThread.cpp
 		)
+	set(UX_FB TRUE)
 endif()
+
 if(OCHER_EPUB)
-	list(APPEND SOURCES
+	list(APPEND LIB_SOURCES
 		#fmt/epub/Css.cpp
+		#fmt/epub/ParseHtml.c
 		fmt/epub/LayoutEpub.cpp
 		fmt/epub/UnzipCache.cpp
 		fmt/epub/Epub.cpp
 		)
-	add_definitions(-DOCHER_EPUB)
+	list(APPEND OCHER_DEFS OCHER_EPUB)
 endif()
 if(OCHER_TEXT)
-	list(APPEND SOURCES
+	list(APPEND LIB_SOURCES
 		fmt/text/Text.cpp
 		fmt/text/LayoutText.cpp
 		)
-	add_definitions(-DOCHER_TEXT)
+	list(APPEND OCHER_DEFS OCHER_TEXT)
+endif()
+if(OCHER_JPEG)
+	list(APPEND LIB_SOURCES
+		ux/fb/JPEG.cpp
+		)
+	list(APPEND OCHER_DEFS OCHER_JPEG)
 endif()
 
-add_executable(ocher
-	${SOURCES}
+if (UX_FB)
+	list(APPEND OCHER_DEFS UX_FB)
+endif()
+if (UX_CDK)
+	list(APPEND OCHER_DEFS UX_CDK)
+endif()
+if (UX_FD)
+	list(APPEND OCHER_DEFS UX_FD)
+endif()
+
+add_library(ocherbook STATIC
+	${LIB_SOURCES}
 	)
-target_link_libraries(ocher
+
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+	list(APPEND OCHER_DEFS CLC_LOG_LEVEL=5)
+else()
+	list(APPEND OCHER_DEFS CLC_LOG_LEVEL=2)
+endif()
+
+target_compile_definitions(ocherbook
+	PRIVATE
+		${OCHER_DEFS}
+	)
+
+target_link_libraries(ocherbook
 	freetype
 	libev
 	zlib
@@ -118,11 +148,32 @@ target_link_libraries(ocher
 	pthread
 	bz2  # TODO freetype (may!) want this
 	)
+if(OCHER_EPUB)
+	target_link_libraries(ocherbook
+		hubbub
+		#css
+		parserutils
+		wapcaplet
+		)
+endif()
 if(OCHER_SDL)
-	target_link_libraries(ocher
+	target_link_libraries(ocherbook
 		SDL
 		)
 endif()
+if(OCHER_UI_CDK)
+	target_link_libraries(ocherbook
+		cdk
+		)
+endif()
+
+add_executable(ocher
+	ocher.cpp
+	${BIN_SOURCES}
+	)
+target_link_libraries(ocher
+	ocherbook
+	)
 
 
 include(ProcessorCount)
@@ -130,7 +181,7 @@ ProcessorCount(NUM_CPUS)
 if(NOT NUM_CPUS EQUAL 0)
 	set(CPPCHECK_FLAGS -j${NUM_CPUS})
 endif()
-get_target_property(OCHER_INCS ocher INCLUDE_DIRECTORIES)
+get_target_property(OCHER_INCS ocherbook INCLUDE_DIRECTORIES)
 foreach(INC ${OCHER_INCS})
 	list(APPEND CPPCHECK_INCS "-I${INC}")
 endforeach()
@@ -140,6 +191,12 @@ add_custom_target(cppcheck
 	)
 
 
+configure_file(${PROJECT_SOURCE_DIR}/doc/Doxyfile
+	${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+
 add_custom_target(doxygen
-	COMMAND doxygen ${PROJECT_SOURCE_DIR}/doc/Doxyfile
+	COMMAND doxygen ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+	WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 	)
+
+add_subdirectory(test)

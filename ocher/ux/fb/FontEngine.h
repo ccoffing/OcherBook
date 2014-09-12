@@ -8,7 +8,9 @@
 
 #include "clc/data/Hashtable.h"
 #include "ocher/ux/fb/FbTypes.h"
+#include "ocher/ux/fb/FreeType.h"
 
+class FrameBuffer;
 
 /**
  */
@@ -27,17 +29,6 @@ struct GlyphFace
 	int16_t underlinePos;
 } __attribute__((packed));
 
-struct GlyphDescr
-{
-	uint32_t c;
-	// TODO: bitfield
-	uint8_t faceId;
-	uint8_t points;
-	uint8_t underline;
-	uint8_t bold;
-	uint8_t italic;
-} __attribute__((packed));
-
 class GlyphCache
 {
 public:
@@ -52,11 +43,13 @@ public:
 
 /**
  * Converts glyphs to bitmaps.
+ *
+ * @todo  GlyphCache/FreeType should be shared; face is per local context
  */
 class FontEngine
 {
 public:
-	FontEngine();
+	FontEngine(FrameBuffer* fb);
 	~FontEngine();
 
 	static void scanForFonts();  // TODO move to FreeType?
@@ -101,6 +94,8 @@ public:
 			Rect* bbox=0);
 
 	GlyphCache m_cache;
+
+	FreeType m_ft;
 };
 
 #endif

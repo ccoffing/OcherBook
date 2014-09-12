@@ -4,6 +4,6 @@
 arm-2010q1
 doc/OcherBook/
 build/
-test/books/
+ocher/test/books/
 .svn
 

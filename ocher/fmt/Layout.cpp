@@ -96,6 +96,11 @@ void Layout::popLineAttr(unsigned int n)
 	push(OpCmd, CmdPopAttr, n);
 }
 
+//void Layout::pushImage()
+//{
+//	push(OpImage, );
+//}
+
 inline void Layout::_outputChar(char c)
 {
 	if (m_textLen == chunk) {

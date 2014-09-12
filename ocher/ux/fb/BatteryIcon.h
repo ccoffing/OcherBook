@@ -7,19 +7,19 @@
 #define OCHER_UX_FB_BATTERYICON_H
 
 #include "ocher/ux/fb/Widgets.h"
-#include "ocher/device/Battery.h"
 
+class Battery;
 
 class BatteryIcon : public Widget
 {
 public:
-	BatteryIcon(int x, int y, Battery& battery);
+	BatteryIcon(int x, int y, Battery* battery);
 
 	void draw();
 
 	void onUpdate();
 
-	Battery& m_battery;
+	Battery* m_battery;
 };
 
 #endif

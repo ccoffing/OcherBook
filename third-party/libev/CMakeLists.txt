@@ -6,7 +6,7 @@ if (LIBEV_USE_SYSTEM)
 	find_library(ev REQUIRED)
 else()
 	ExternalProject_add(libev-external
-		URL http://dist.schmorp.de/libev/libev-4.15.tar.gz
+		URL http://dist.schmorp.de/libev/Attic/libev-4.15.tar.gz
 		CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=<INSTALL_DIR>
 		BUILD_COMMAND ${CMAKE_MAKE_PROGRAM}
 		)

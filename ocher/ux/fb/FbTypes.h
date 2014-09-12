@@ -47,5 +47,15 @@ public:
 	uint8_t height;
 } __attribute__((packed));
 
+struct GlyphDescr
+{
+	uint32_t c;
+	// TODO: bitfield
+	uint8_t faceId;
+	uint8_t points;
+	uint8_t underline;
+	uint8_t bold;
+	uint8_t italic;
+} __attribute__((packed));
 
 #endif

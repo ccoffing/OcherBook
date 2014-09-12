@@ -11,12 +11,19 @@
 // TODO:  conditionalize some settings based on platform?  so can maintain/
 // share a single settings files
 
+class Filesystem;
 
-struct Settings {
+/**
+ * Persisted user settings
+ */
+class Settings {
+public:
 	Settings();
 
 	void load();
 	void save();
+
+	void inject(Filesystem* fs);
 
 	int trackReading;  ///< Track major reading events? (start/end book, ...)
 	int encryptReading;  ///< Encrypt reading events?
@@ -35,7 +42,7 @@ struct Settings {
 
 	clc::Buffer wirelessSsid;
 	int wirelessAirplaneMode;  ///< Ask before turning on wireless
-	
+
 	unsigned int fullRefreshPages;
 
 	int showPageNumbers;
@@ -61,8 +68,9 @@ struct Settings {
 	int largeSpace;
 
 	// home page arrangement
-};
 
-extern Settings g_settings;
+protected:
+	Filesystem* m_fs;
+};
 
 #endif

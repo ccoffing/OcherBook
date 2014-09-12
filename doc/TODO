@@ -1,74 +1,135 @@
-fix text centering
-clean up leaks @ shutdown
-first draw of boot menu hangs; puts kernel in bad state
+Refactor:
+    UxController
+        how UxController runs ActivityFb - m_loop.run() ?
+        how it returns
+        how to set next activity
+    build with fb, fd, cdk enabled
+    finish: create UxController, kill Factories  (--list-drivers)
+        any potential variations within a UxController (framebuffer, but which driver is appropriate?)
+            is handled within the UxController
+    FbScreen (from Widgets) rolls into ActivityFb, etc
+    CDK:
+        cdk is blocking, not event driven.  how does loop fit in?
+    proof: bring back ncurses, haiku
+        split *Activity into controller/view.  view is specific to output device.
+    remove m_loop from Framebuffers (only needed for KoboEvents)
+    consolidate all event sources:  (derived from EventSource?)
+            SdlThread
+            KoboEvents
+            BrowseFd.cpp:getKey
+            ncurses
+            ...
+            finish wiring events into libev, fire via signal/slot
+                inotify for card in Filesystem
+                    Filesystem::fireEvents
+    widgets shouldn't hit g_fb; use screen
+    remove drawing directly in evt callbacks (HomeActivity::evtMouse, g_fb->update, ...)
 
-crashes:
-    crash when power saver kicks on (realloc -32 from libev)
-    run with DEBUG for crashes...  but crap backtraces!
-    only on device, not w/ x86 SDL
-sleep:
-    can't wake up sometimes
-    clear event q when waking
-finish wiring events into libev, fire via signal/slot
-    inotify for card in Filesystem
-        Filesystem::fireEvents
-    periodically refresh battery icon
-fb can get garbled
-    related to killall animator?
-    bootloader prevents nickel from starting - garbled screen
-cmake
-    ocher .o outside of build dir
-proper atomics on ARM
-persist user state
+Testing:
+    favor constructor passing, or setters?
+    avoid hitting g_container directly?
+        easier to unit test if can avoid g_container
+    make all classes in Container abstract, testable
+
+Documentation:
+    md-ify
+
+Build:
+    consistent #defines for configuration
+    newer style cmake (transitive)
+
+Hardware:
+    control LEDs
+    support USB keyboard
+    Battery:
+        periodically refresh battery icon
+        low battery warning
+
+Settings:
     json -- jsmn?
     shelf, meta
-    settings
+    date format
+    user's name
 
-write install walkthrough
-clean up website
-downloadable builds
+Netsurf
+    parse HTML with it
+        ocher/fmt/epub/LayoutEpub.cpp
+            use mxml not libxml2 in ParseHtml.c
+    finish CMake for libcss
+        generate CSS files - missing dynamically generated files
+            aliases.inc
+            entities.inc
 
-utility menu: reboot, boot to nickel, ...
-front page should reflect most recent book
-    "selected" doesn't bubble to top -- need another Shelf (MostRecent)?
-does epub spec allow UTF-16?
-css
-"Attempted recursive use of the logger"
-remove drawing directly in evt callbacks (HomeActivity::evtMouse, g_fb->update, ...)
+Framebuffer
+    make UI scalable to other res
+        make SDL window resizable
+    font search path
+
+    fix text centering
+
+    first draw of boot menu hangs; puts kernel in bad state
+
+    fb can get garbled on kobo
+        related to killall animator?
+        bootloader prevents nickel from starting - garbled screen
+
+    SDL
+        update to SDL2:
+            req: timestamp on events
+        port of SDL2 to kobo
+
+Platform-specific:
+    proper atomics on ARM
+
+Epub:
+    jpg
+    nested formats: suggests "pipelines"?
+        eg: zipped text
+    does epub spec allow UTF-16?
+
+Utilities:
+    utility menu: reboot, boot to nickel, ...
+
 beware adding child multiple times / removeChild for shared
 position - abs, rel, .....???!!!
-widgets shouldn't hit g_fb; use screen
-
 windows should have their own fg/bg colors, not the fb
-fix SDL shutdown (#39)
-ioc:
-    g_*
 
-rearrange system bar like gnome/mac:
-    "HOME" icon
-chapter/TOC hot links
-sync adds multiple copies
-    database
-control LEDs
-"make dist"
-    updated rcS
 networking
     for now, store in config file
     wpa_cli
     link quality
 
-support USB keyboard
 clean up object model:
     LibraryActivity
         nav buttons - impl as Widgets; fade disabled
     BatteryIcon should be a Icon
-font search path
-make UI scalable to other res
-    make SDL window resizable
-font size does not always pop correctly
-Show/hide SystemBar causes page to shift
-improve startup time:  don't parse so much to get metadata
-flag in Meta what hasn't been discovered yet (expensive to create icon, ...)
+
+Bugs:
+    font size does not always pop correctly
+    Show/hide SystemBar causes page to shift
+    clean up leaks @ shutdown
+    sleep:
+        can't wake up sometimes
+        drop events < current epoch
+    sync adds multiple copies
+        database
+
+Usability:
+    highlighting / ability to import/export highlights, notes
+    front page should reflect most recent book
+        "selected" doesn't bubble to top -- need another Shelf (MostRecent)?
+    improve startup time:  don't parse so much to get metadata
+    flag in Meta what hasn't been discovered yet (expensive to create icon, ...)
+    group book series
+    don't display unhandled formats, or do popup, whatever.  don't pretend to open and show nothing.
+        req: message box
+    first-run routine:
+        select language
+    real icons
+    rearrange system bar like gnome/mac:
+        "HOME" icon
+    chapter/TOC hot links
+
 widget
     pop up menus
     packing
@@ -78,9 +139,6 @@ g_fb->bbox vs m_rect
 do settings apply before or after layout?
     better definition around what AttrSizeAbs, etc mean
     are absolute font sizes really absolute while in the layout?
-settings:
-    date format
-    user's name
 
 fonts
     layout by line, to do centering
@@ -89,13 +147,12 @@ fonts
     font path, scan ttf files, font families, ...
     font preferences
 
-remove exceptions from File
-clean up Path/File to be simpler, more posix-like
+Tidy:
+    remove exceptions from File
+    clean up Path/File to be simpler, more posix-like
+    is it ok to have files of the same name?   or what's canonical way to name similar files across dirs?
 
-first-run routine:
-    select language
-
-low battery warning
-usb plugged in
-
-group book series
+Website:
+    write install walkthrough
+    clean up website
+    downloadable builds

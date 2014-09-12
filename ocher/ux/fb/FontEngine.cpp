@@ -3,13 +3,15 @@
  * OcherBook is released under the BSD 2-clause license.  See COPYING.
  */
 
-#include <stddef.h>
-#include <ctype.h>
+#include "ocher/Container.h"
+#include "ocher/settings/Settings.h"
+#include "ocher/ux/fb/FontEngine.h"
+#include "ocher/ux/fb/FrameBuffer.h"
 
 #include "clc/support/Logger.h"
-#include "ocher/settings/Settings.h"
-#include "ocher/ux/Factory.h"
-#include "ocher/ux/fb/FontEngine.h"
+
+#include <stddef.h>
+#include <ctype.h>
 
 #define LOG_NAME "ocher.ux.FontEngine"
 
@@ -35,10 +37,11 @@ Glyph* GlyphCache::get(GlyphDescr* f)
 	return (Glyph*)m_cache.get(f, sizeof(*f));
 }
 
-FontEngine::FontEngine()
+FontEngine::FontEngine(FrameBuffer* fb) :
+	m_ft(fb->dpi())
 {
 	m_next.faceId = 0;
-	m_next.points = g_settings.fontPoints;
+	m_next.points = g_container.settings->fontPoints;
 	m_next.underline = 0;
 	m_next.bold = 0;
 	m_next.italic = 0;
@@ -53,10 +56,10 @@ FontEngine::~FontEngine()
 void FontEngine::scanForFonts()
 {
 	const char* search;
-	if (g_settings.fontRoot.length() == 0)
+	if (g_container.settings->fontRoot.length() == 0)
 		search = ".";
 	else
-		search = g_settings.fontRoot.c_str();
+		search = g_container.settings->fontRoot.c_str();
 
 	const char* p = search;
 	const char* colon;
@@ -132,20 +135,20 @@ void FontEngine::apply()
 			/*TODO*/;
 		}
 		if (m_cur.italic != m_next.italic || m_cur.bold != m_next.bold) {
-			g_ft->setFace(m_next.italic, m_next.bold);
-			g_ft->setSize(m_next.points);
+			m_ft.setFace(m_next.italic, m_next.bold);
+			m_ft.setSize(m_next.points);
 		} else if (m_cur.points != m_next.points) {
-			g_ft->setSize(m_next.points);
+			m_ft.setSize(m_next.points);
 		}
 		if (m_cur.underline != m_next.underline) {
 			/*TODO*/;
 		}
 		m_cur = m_next;
-		m_cur.ascender = g_ft->getAscender();
-		m_cur.descender = g_ft->getDescender();
+		m_cur.ascender = m_ft.getAscender();
+		m_cur.descender = m_ft.getDescender();
 		m_cur.bearingY = m_cur.ascender;  /* TODO */
-		m_cur.lineHeight = g_ft->getLineHeight();
-		m_cur.underlinePos = g_ft->getUnderlinePos();
+		m_cur.lineHeight = m_ft.getLineHeight();
+		m_cur.underlinePos = m_ft.getUnderlinePos();
 		dirty = 0;
 	}
 }
@@ -168,7 +171,7 @@ void FontEngine::plotString(const char* p, unsigned int len, Glyph** glyphs, Rec
 		if (!g) {
 			//clc::Log::trace(LOG_NAME, "%d pt %c is not cached", d.face.points, d.c);
 			g = new Glyph;
-			if (g_ft->plotGlyph(&d, g) < 0) {
+			if (m_ft.plotGlyph(&d, g) < 0) {
 				clc::Log::warn(LOG_NAME, "plotGlyph failed for %x; skipping", d.c);
 				delete g;
 				continue;
@@ -250,7 +253,7 @@ unsigned int FontEngine::renderString(const char* str, unsigned int len, Pos* pe
 				}
 				dst.x = pen->x + r->x + xOffset;
 				dst.y = pen->y + r->y;
-				g_fb->blitGlyphs(glyphs, &dst, r);
+				g_container.frameBuffer->blitGlyphs(glyphs, &dst, r);
 				pen->x = dst.x - r->x - xOffset;
 				pen->y = dst.y - r->y;
 			}

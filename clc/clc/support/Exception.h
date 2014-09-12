@@ -2,7 +2,8 @@
 #define LIBCLC_EXCEPTION_H
 
 /**
- *  @file Common exceptions.
+ *  @file
+ *  Common exceptions.
  *
  *  Note that all exceptions derive from std::exception, not std::runtime_error.  The latter pulls
  *  in std::string.

@@ -3,20 +3,6 @@
 namespace clc
 {
 
-/**
- *  MurmurHash2, public domain by Austin Appleby
- *  @url http://murmurhash.googlepages.com
- *
- *  Requirements when selecting a hash:
- *   - Fast
- *     (murmur is 10% faster than jenkins lookup3; 5x faster than SHA1)
- *   - Small code size; prefer no lookup tables
- *     (murmur can be as small as 52 bytes)
- *   - Excellent distribution, since may be "hashing" a single 4-byte pointer
- *     (http://murmurhash.googlepages.com/avalanche)
- *  Non-requirements:
- *   - Deterministic results across different platforms
- */
 uint32_t hash(const uint8_t* data, unsigned int len)
 {
     // Could let the caller choose a seed, but not currently, for API simplicity.

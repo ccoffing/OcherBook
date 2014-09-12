@@ -9,19 +9,19 @@
 #include "Signals/Signal.h"
 using namespace Gallant;
 
-#include "ocher/ux/fb/Widgets.h"
 #include "ocher/ux/Event.h"
 
 class Device;
 
 
-class PowerSaver : public Window
+class PowerSaver
 {
 public:
 	PowerSaver();
 
-	void setEventLoop(EventLoop* loop);
-	void setDevice(Device* device);
+	void inject(EventLoop* loop);
+	void inject(Device* device);
+
 	void setTimeout(unsigned int seconds);
 
 	Signal0<> wantToSleep;

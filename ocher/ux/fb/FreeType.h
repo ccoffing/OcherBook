@@ -6,7 +6,7 @@
 #ifndef OCHER_FREETYPE_H
 #define OCHER_FREETYPE_H
 
-#include "FontEngine.h"
+#include "FbTypes.h"
 
 #include "ft2build.h"
 #include FT_FREETYPE_H

@@ -15,6 +15,7 @@ public:
 	NavBar();
 
 protected:
+	FrameBuffer* m_fb;
 	void drawContent(Rect*);
 };
 

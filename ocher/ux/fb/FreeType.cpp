@@ -3,11 +3,13 @@
  * OcherBook is released under the BSD 2-clause license.  See COPYING.
  */
 
-#include <ctype.h>
-
-#include "clc/support/Logger.h"
+#include "ocher/Container.h"
 #include "ocher/settings/Settings.h"
 #include "ocher/ux/fb/FreeType.h"
+
+#include "clc/support/Logger.h"
+
+#include <ctype.h>
 
 #define LOG_NAME "ocher.freetype"
 
@@ -21,10 +23,17 @@ static const char* ttfFiles[] = {
 	"Delima-Bold.ttf",
 	"Delima-BoldItalic.ttf",
 #else
+#if 0
 	"liberation/LiberationSerif-Regular.ttf",
 	"liberation/LiberationSerif-Italic.ttf",
 	"liberation/LiberationSerif-Bold.ttf",
 	"liberation/LiberationSerif-BoldItalic.ttf",
+#else
+	"dejavu/DejaVuSerif.ttf",
+	"dejavu/DejaVuSerif-Italic.ttf",
+	"dejavu/DejaVuSerif-Bold.ttf",
+	"dejavu/DejaVuSerif-BoldItalic.ttf",
+#endif
 #endif
 };
 
@@ -52,7 +61,7 @@ bool FreeType::init()
 
 bool FreeType::setFace(int i, int b)
 {
-	clc::Buffer file = g_settings.fontRoot;
+	clc::Buffer file = g_container.settings->fontRoot;
 	i = i ? 1 : 0;
 	b = b ? 1 : 0;
 	file += "/";

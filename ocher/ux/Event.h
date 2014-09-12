@@ -103,8 +103,7 @@ public:
 
 	int run();
 	void stop();
-	/** Defines a new epoch; events timestamped prior to this are silently
-	 * dropped. */
+	/** Defines a new epoch; events timestamped prior to this are silently dropped. */
 	void setEpoch();
 
 	Signal1<struct OcherKeyEvent*> keyEvent;
@@ -118,9 +117,8 @@ public:
 };
 
 
-/**
- * Offloads heavy work from the EventLoop to another thread.  When the work is completed,
- * notifies the EventLoop.  Must be created on the EventLoop's thread.
+/** Offloads heavy work from the EventLoop to another thread.  When the work is completed, notifies
+ * the EventLoop.  Must be created on the EventLoop's thread.
  */
 class EventWork : public clc::Thread
 {

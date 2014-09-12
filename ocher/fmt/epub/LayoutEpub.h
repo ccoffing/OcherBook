@@ -16,7 +16,11 @@ class LayoutEpub : public Layout
 public:
 	LayoutEpub(Epub* epub) : m_epub(epub) {}
 
+#if 1
 	void append(mxml_node_t* tree);
+#else
+	void append(clc::Buffer& html);
+#endif
 
 protected:
 	void processNode(mxml_node_t* node);

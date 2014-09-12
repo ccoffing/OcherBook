@@ -12,7 +12,6 @@
 #include "ocher/settings/Options.h"
 #include "ocher/shelf/Meta.h"
 #include "ocher/ux/fd/BrowseFd.h"
-#include "ocher/ux/Factory.h"
 
 // TODO:  handle !isatty(stdin)
 

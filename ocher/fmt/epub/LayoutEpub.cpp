@@ -3,24 +3,25 @@
  * OcherBook is released under the BSD 2-clause license.  See COPYING.
  */
 
-#include "mxml.h"
-
-#include "clc/support/Logger.h"
+#include "ocher/Container.h"
 #include "ocher/fmt/epub/Epub.h"
 #include "ocher/fmt/epub/LayoutEpub.h"
 #include "ocher/fmt/epub/TreeMem.h"
 #include "ocher/settings/Settings.h"
 
+#include "clc/support/Logger.h"
+
+#include "hubbub/hubbub.h"
+//#include "libcss/libcss.h"
+#include "mxml.h"
+
 #define LOG_NAME "ocher.epub"
-
-
-// TODO:  meta should be attached to the bytecode
-// TODO:  css
-// TODO:  canonicalize:  HTML escapes, ...
 
 
 void LayoutEpub::processNode(mxml_node_t* node)
 {
+	Settings* settings = g_container.settings;
+
 	if (node->type == MXML_ELEMENT) {
 		const char* name = node->value.element.name;
 		clc::Log::trace(LOG_NAME, "found element '%s'", name);
@@ -53,7 +54,7 @@ void LayoutEpub::processNode(mxml_node_t* node)
 			int inc = 3 - (name[1]-'0');
 			if (inc < 0)
 				inc = 0;
-			pushTextAttr(AttrSizeAbs, g_settings.fontPoints+inc*2);
+			pushTextAttr(AttrSizeAbs, settings->fontPoints+inc*2);
 			processSiblings(node->child);
 			popTextAttr(2);
 			outputNl();
@@ -69,6 +70,14 @@ void LayoutEpub::processNode(mxml_node_t* node)
 			pushTextAttr(AttrItalics, 0);
 			processSiblings(node->child);
 			popTextAttr();
+		} else if (strcasecmp(name, "img") == 0) {
+			const char* src = mxmlElementGetAttr(node, "src");
+			if (src) {
+				clc::Buffer img;
+				img = m_epub->getFile(src);
+				// TODO width, height, scale, ...
+				//pushImage(img, 0, index);
+			}
 		} else {
 			processSiblings(node->child);
 		}
@@ -88,6 +97,7 @@ void LayoutEpub::processSiblings(mxml_node_t* node)
 	}
 }
 
+#if 1
 void LayoutEpub::append(mxml_node_t* tree)
 {
 	// TODO:  "html/body" matches nothing if the root node is "html" (no ?xml) so using "*/body"
@@ -100,3 +110,15 @@ void LayoutEpub::append(mxml_node_t* tree)
 		clc::Log::warn(LOG_NAME, "no body");
 	}
 }
+#else
+void LayoutEpub::append(clc::Buffer& html)
+{
+	mxml_node_t* tree = epub.parseXml(html);
+	if (tree) {
+		((LayoutEpub*)m_layout)->append(tree);
+		mxmlDelete(tree);
+	} else {
+		clc::Log::warn(LOG_NAME, "No tree found for spine item %d", i);
+	}
+}
+#endif

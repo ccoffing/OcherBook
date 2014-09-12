@@ -27,6 +27,7 @@ public:
 class TreeDirectory
 {
 public:
+	TreeDirectory(const char* _name) : name(_name) {}
 	TreeDirectory(const clc::Buffer& _name) : name(_name) {}
 	~TreeDirectory() {
 		for (std::list<TreeFile*>::const_iterator i = files.begin(); i != files.end(); ++i)

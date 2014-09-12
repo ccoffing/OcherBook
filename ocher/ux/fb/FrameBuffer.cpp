@@ -3,10 +3,10 @@
  * OcherBook is released under the BSD 2-clause license.  See COPYING.
  */
 
+#include "ocher/ux/fb/FrameBuffer.h"
+
 #include <stddef.h>
 #include <stdint.h>
-
-#include "ocher/ux/fb/FrameBuffer.h"
 
 
 #define min(a,b) (((a) < (b)) ? (a) : (b))

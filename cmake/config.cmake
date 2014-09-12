@@ -27,21 +27,16 @@ set(OCHER_HTML TRUE CACHE BOOL "Support HTML books")
 set(OCHER_JPEG TRUE CACHE BOOL "Support JPEG images")
 
 ### Output devices
-set(OCHER_UI_FD TRUE CACHE BOOL "blah")
-set(OCHER_UI_NCURSES FALSE CACHE BOOL "blah")
-##ifneq ($(OCHER_TARGET),minwg)
-##    ifneq ($(OCHER_TARGET),haiku)
-##        OCHER_UI_NCURSES?=1
-##    endif
-##endif
+set(OCHER_UI_FD TRUE CACHE BOOL "File descriptor user interface")
+set(OCHER_UI_CDK FALSE CACHE BOOL "CDK (ncurses) based user interface")
 ##ifneq ($(OCHER_TARGET),cygwin)
 ##    OCHER_UI_SDL?=1
 ##endif
-#OCHER_UI_NCURSES=1
+#OCHER_UI_CDK=1
 #OCHER_UI_MX50?=0
 #ifeq ($(OCHER_TARGET),kobo)
 #    OCHER_UI_MX50=1
-#    OCHER_UI_NCURSES=0
+#    OCHER_UI_CDK=0
 #    OCHER_UI_SDL=0
 #endif
 #

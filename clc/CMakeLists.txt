@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 2.8.12)
+
 project(clc)
 
 include_directories(
@@ -32,5 +34,9 @@ list(APPEND CLC_SOURCES
 
 add_library(clc STATIC
 	${CLC_SOURCES})
+target_link_libraries(clc pthread)
 
 export(PACKAGE clc)
+
+
+add_subdirectory(test)

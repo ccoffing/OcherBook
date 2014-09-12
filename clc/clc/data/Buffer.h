@@ -44,10 +44,10 @@ public:
     static const size_t NotFound = ((size_t)-1);
 
     Buffer();
-    Buffer(const char* string);
+    explicit Buffer(const char* string);
     Buffer(const char* string, size_t maxLength);
     Buffer(const Buffer& string);
-    Buffer(int dummy, const char* fmt, ...);
+    Buffer(int dummy, const char* fmt, ...) __attribute__((format(printf, 3, 4)));
     ~Buffer();
 
     // Drop-in for std::string:
@@ -82,9 +82,9 @@ public:
     Buffer&    operator=(char c);
 
     Buffer& formatList(const char* fmt, va_list argList);
-    Buffer& format(const char* fmt, ...);
+    Buffer& format(const char* fmt, ...) __attribute__((format(printf, 2, 3)));
     Buffer& appendFormatList(const char* fmt, va_list argList);
-    Buffer& appendFormat(const char* fmt, ...);
+    Buffer& appendFormat(const char* fmt, ...) __attribute__((format(printf, 2, 3)));
 
     Buffer&    setTo(const char* string);
     Buffer&    setTo(const char* string, size_t maxLength);

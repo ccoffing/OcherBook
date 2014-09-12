@@ -3,14 +3,11 @@
  * OcherBook is released under the BSD 2-clause license.  See COPYING.
  */
 
-#include "clc/storage/File.h"
-
 #include "ocher/device/Device.h"
+#include "ocher/device/Filesystem.h"
 #include "ocher/settings/Settings.h"
 
-//#include "third-party/jsmn/jsmn.c"
-
-Settings g_settings;
+#include "clc/storage/File.h"
 
 
 Settings::Settings() :
@@ -35,14 +32,20 @@ Settings::Settings() :
 	fontRoot = "/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib/fonts";
 #else
 	// TODO fontRoot = ".:/usr/share/fonts/truetype/ttf-dejavu";
-	fontRoot = "/usr/share/fonts/truetype/";
+	//fontRoot = "/usr/share/fonts/truetype/";
+	fontRoot = "/usr/local/lib/X11/fonts/";
 #endif
+}
+
+void Settings::inject(Filesystem* fs)
+{
+	m_fs = fs;
 }
 
 void Settings::load()
 {
 	clc::File s;
-	if (s.setTo(g_device->fs.m_settings) != 0)
+	if (s.setTo(m_fs->m_settings) != 0)
 		return;
 
 	clc::Buffer line;
@@ -65,7 +68,7 @@ void Settings::load()
 
 void Settings::save()
 {
-	clc::File s(g_device->fs.m_settings, "w");
+	clc::File s(m_fs->m_settings, "w");
 
 	clc::Buffer b;
 

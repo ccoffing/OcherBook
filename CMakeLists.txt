@@ -6,7 +6,7 @@
 # consume config file
 
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.12)
 
 #
 # Global compiler flags
@@ -15,7 +15,7 @@ if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE Debug)
 endif()
 message("build type ${CMAKE_BUILD_TYPE}")
-set(_CFLAGS_WARN "-Wall -Wextra -Wno-unused-parameter -Wno-multichar -Wwrite-strings -Wformat=2")
+set(_CFLAGS_WARN "-Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wformat=2")
 set(CMAKE_C_FLAGS_RELEASE "-Os -DNDEBUG")
 set(CMAKE_C_FLAGS_DEBUG   "-O0 -DDEBUG")
 set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} ${_CFLAGS_WARN}")
@@ -45,7 +45,7 @@ set(THIRD_PARTY_DIR "${ROOT_DIR}/third-party")
 #
 
 include(${ROOT_DIR}/cmake/config.cmake)
-#include(${ROOT_DIR}/features/xxx)
+#include(${ROOT_DIR}/cmake/features/xxx)
 
 if(NOT CMAKE_CROSSCOMPILING)
 enable_testing()
@@ -56,6 +56,10 @@ add_subdirectory(third-party/zlib)
 add_subdirectory(third-party/Signals)
 add_subdirectory(third-party/libev)
 add_subdirectory(third-party/freetype)
+add_subdirectory(third-party/libwapcaplet)
+add_subdirectory(third-party/libparserutils)
+add_subdirectory(third-party/libcss)
+add_subdirectory(third-party/libhubbub)
+
 add_subdirectory(clc)
 add_subdirectory(ocher)
-add_subdirectory(test)

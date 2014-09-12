@@ -7,7 +7,6 @@
 #include "clc/support/Logger.h"
 #include "ocher/device/Device.h"
 #include "ocher/settings/Settings.h"
-#include "ocher/ux/Factory.h"
 #include "ocher/ux/PowerSaver.h"
 #include "ocher/ux/fb/FontEngine.h"
 
@@ -30,11 +29,11 @@ void PowerSaver::timeout()
 PowerSaver::PowerSaver() :
 	m_loop(0),
 	m_seconds(15*60), // TODO settings
-	m_device(g_device)
+	m_device(0)
 {
 }
 
-void PowerSaver::setEventLoop(EventLoop* loop)
+void PowerSaver::inject(EventLoop* loop)
 {
 	m_loop = loop;
 
@@ -46,7 +45,7 @@ void PowerSaver::setEventLoop(EventLoop* loop)
 	resetTimeout();
 }
 
-void PowerSaver::setDevice(Device* device)
+void PowerSaver::inject(Device* device)
 {
 	m_device = device;
 }
@@ -89,30 +88,4 @@ void PowerSaver::onDeviceEvent(struct OcherDeviceEvent* evt)
 void PowerSaver::sleep()
 {
 	m_device->sleep();
-}
-
-void PowerSaver::onAttached()
-{
-	maximize();
-
-	g_fb->setFg(0xff, 0xff, 0xff);
-	g_fb->fillRect(&m_rect);
-	g_fb->setFg(0, 0, 0);
-
-	FontEngine fe;
-	fe.setSize(18);
-	fe.setItalic(1);
-	fe.apply();
-
-	Pos p;
-	p.x = 0;
-	p.y = m_rect.h/2;
-	fe.renderString("Sleeping", 8, &p, &m_rect, FE_XCENTER);
-
-	g_fb->update(&m_rect, true);  // Full refresh to clear page remnants
-	g_fb->sync();
-}
-
-void PowerSaver::onDetached()
-{
 }
