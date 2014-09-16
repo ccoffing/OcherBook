@@ -20,7 +20,6 @@
 LibraryActivityFb::LibraryActivityFb(UxControllerFb* c) :
 	ActivityFb(c),
 	m_systemBar(c->m_systemBar),
-	m_fb(c->getFrameBuffer()),
 	m_settings(g_container.settings),
 	m_library(0),
 	m_pageNum(0)
@@ -31,9 +30,9 @@ LibraryActivityFb::LibraryActivityFb(UxControllerFb* c) :
 	m_booksPerPage = BOOKS_PER_PAGE;
 	m_bookRects = new Rect[m_booksPerPage];
 
-	m_systemBar.m_sep = false;
-	m_systemBar.m_title = "LIBRARY";
-	m_systemBar.show();
+	m_systemBar->m_sep = false;
+	m_systemBar->m_title = "LIBRARY";
+	m_systemBar->show();
 	addChild(m_systemBar);
 	addChild(new Icon(m_settings->medSpace + m_settings->largeSpace,
 				m_rect.h - m_settings->medSpace - bmpLeftArrow.h, &bmpLeftArrow));
@@ -126,7 +125,7 @@ void LibraryActivityFb::draw()
 	fe.renderString(str.c_str(), str.length(), &pos, &clip, FE_XCENTER);
 // TODO        int maxY = pos.y - fe.m_cur.ascender;
 
-	clip.y = m_systemBar.m_rect.y + m_systemBar.m_rect.h + m_settings->medSpace;
+	clip.y = m_systemBar->m_rect.y + m_systemBar->m_rect.h + m_settings->medSpace;
 	clip.x = m_settings->medSpace;
 	clip.w -= m_settings->medSpace*2;
 	for (unsigned int i = 0; i < m_booksPerPage; ++i) {
@@ -163,9 +162,9 @@ void LibraryActivityFb::onAttached()
 	m_pages = (m_library->size() + m_booksPerPage - 1) / m_booksPerPage;
 	clc::Log::info(LOG_NAME, "%u books across %u pages", (unsigned)m_library->size(), m_pages);
 
-	m_systemBar.m_sep = false;
-	m_systemBar.m_title.clear();
-	m_systemBar.show();
+	m_systemBar->m_sep = false;
+	m_systemBar->m_title.clear();
+	m_systemBar->show();
 
 	invalidate();
 }

@@ -6,6 +6,7 @@
 #include "ocher/Container.h"
 #include "ocher/ux/fb/BootActivityFb.h"
 #include "ocher/ux/fb/FontEngine.h"
+#include "ocher/ux/fb/UxControllerFb.h"
 
 #include "clc/support/Logger.h"
 
@@ -16,7 +17,7 @@
 
 BootActivityFb::BootActivityFb(UxControllerFb* c) :
 	ActivityFb(c),
-	m_fb(g_container.frameBuffer)
+	m_fb(c->getFrameBuffer())
 {
 	float ratio = 1.6;
 	int w = m_fb->width();

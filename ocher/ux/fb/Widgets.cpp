@@ -312,7 +312,6 @@ void Icon::draw()
 }
 
 
-#if 0
 FbScreen::FbScreen()
 {
 }
@@ -352,7 +351,7 @@ void FbScreen::setFrameBuffer(FrameBuffer* fb)
 	m_rect.h = m_fb->height();
 }
 
-void FbScreen::addChild(Activity* child)
+void FbScreen::addChild(Window* child)
 {
 	Widget *widget = dynamic_cast<Widget*>(child);
 	ASSERT(! m_children.hasItem(widget));
@@ -374,7 +373,7 @@ void FbScreen::addChild(Widget& child)
 }
 #endif
 
-void FbScreen::removeChild(Activity* child)
+void FbScreen::removeChild(Window* child)
 {
 	Widget *widget = dynamic_cast<Widget*>(child);
 	widget->m_flags &= ~WIDGET_OWNED;
@@ -457,4 +456,3 @@ void FbScreen::onKeyEvent(struct OcherKeyEvent* evt)
 			break;
 	}
 }
-#endif

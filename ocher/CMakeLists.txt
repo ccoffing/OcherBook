@@ -1,7 +1,5 @@
 # TODO get_propery INCLUDE_DIRECTORIES of various third_party dirs
 
-option(UX_FD "")
-
 include_directories(
 	${ROOT_DIR}
 	${ROOT_DIR}/clc
@@ -17,7 +15,7 @@ if(OCHER_SDL OR OCHER_UI_CDK)
 	include_directories(/usr/local/include)
 	link_directories(/usr/local/lib)
 endif()
-if(OCHER_EPUB)
+if(OCHER_FMT_EPUB)
 	include_directories(
 		${HUBBUB_INC_DIR}
 		${LIBCSS_INC_DIR}
@@ -61,36 +59,40 @@ list(APPEND LIB_SOURCES
 	ux/fb/ReadActivityFb.cpp
 	ux/fb/RendererFb.cpp
 	ux/fb/RleBitmap.cpp
-	ux/fb/UxControllerFb.cpp
 	ux/fb/SettingsActivityFb.cpp
 	ux/fb/SleepActivityFb.cpp
 	ux/fb/SyncActivityFb.cpp
 	ux/fb/SystemBar.cpp
+	ux/fb/UxControllerFb.cpp
 	ux/fb/Widgets.cpp
 	)
 if(OCHER_UI_CDK)
 	list(APPEND LIB_SOURCES
 		ux/cdk/BrowseActivityCdk.cpp
 		ux/cdk/RendererCdk.cpp
+		ux/cdk/UxControllerCdk.cpp
 		)
-	set(UX_CDK TRUE)
+	list(APPEND OCHER_DEFS UX_CDK)
 endif()
 if(OCHER_KOBO)
 	list(APPEND LIB_SOURCES
 		ux/fb/mx50/FrameBufferMx50.cpp
 		device/kobo/KoboEvents.cpp
 		)
-	set(UX_FB TRUE)
+	list(APPEND OCHER_DEFS UX_FB UX_FB_MX50)
 endif()
 if(OCHER_SDL)
 	list(APPEND LIB_SOURCES
 		ux/fb/sdl/FrameBufferSdl.cpp
 		ux/fb/sdl/SdlThread.cpp
 		)
-	set(UX_FB TRUE)
+	list(APPEND OCHER_DEFS UX_FB UX_FB_SDL)
+endif()
+if(OCHER_UI_FD)
+	list(APPEND OCHER_DEFS UX_FD)
 endif()
 
-if(OCHER_EPUB)
+if(OCHER_FMT_EPUB)
 	list(APPEND LIB_SOURCES
 		#fmt/epub/Css.cpp
 		#fmt/epub/ParseHtml.c
@@ -100,28 +102,18 @@ if(OCHER_EPUB)
 		)
 	list(APPEND OCHER_DEFS OCHER_EPUB)
 endif()
-if(OCHER_TEXT)
+if(OCHER_FMT_TEXT)
 	list(APPEND LIB_SOURCES
 		fmt/text/Text.cpp
 		fmt/text/LayoutText.cpp
 		)
 	list(APPEND OCHER_DEFS OCHER_TEXT)
 endif()
-if(OCHER_JPEG)
+if(OCHER_FMT_JPEG)
 	list(APPEND LIB_SOURCES
 		ux/fb/JPEG.cpp
 		)
 	list(APPEND OCHER_DEFS OCHER_JPEG)
-endif()
-
-if (UX_FB)
-	list(APPEND OCHER_DEFS UX_FB)
-endif()
-if (UX_CDK)
-	list(APPEND OCHER_DEFS UX_CDK)
-endif()
-if (UX_FD)
-	list(APPEND OCHER_DEFS UX_FD)
 endif()
 
 add_library(ocherbook STATIC
@@ -148,7 +140,7 @@ target_link_libraries(ocherbook
 	pthread
 	bz2  # TODO freetype (may!) want this
 	)
-if(OCHER_EPUB)
+if(OCHER_FMT_EPUB)
 	target_link_libraries(ocherbook
 		hubbub
 		#css

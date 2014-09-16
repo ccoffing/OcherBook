@@ -8,10 +8,10 @@
 #include "ocher/ux/fb/SystemBar.h"
 
 
-SystemBar::SystemBar(Battery* battery) :
-	Window(0, 0, g_container.frameBuffer->width(), 30 /* TODO */),
+SystemBar::SystemBar(FrameBuffer* fb, Battery* battery) :
+	Window(0, 0, fb->width(), 30 /* TODO */),
 	m_sep(false),
-	m_fb(g_container.frameBuffer),
+	m_fb(fb),
 	m_batteryIcon(g_container.settings->smallSpace, 0, battery),
 	m_clockIcon(m_fb->width()-50, 0)
 {

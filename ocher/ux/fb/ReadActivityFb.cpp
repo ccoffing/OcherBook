@@ -35,8 +35,8 @@ int ReadActivityFb::evtKey(struct OcherKeyEvent* evt)
 			clc::Log::info(LOG_NAME, "back from page %d", m_pageNum);
 			if (m_pageNum > 0) {
 				m_pageNum--;
-				m_uxController->m_systemBar.hide();
-				m_uxController->m_navBar.hide();
+				m_uxController->m_systemBar->hide();
+				m_uxController->m_navBar->hide();
 				invalidate();
 			}
 			return -1;
@@ -44,8 +44,8 @@ int ReadActivityFb::evtKey(struct OcherKeyEvent* evt)
 			clc::Log::info(LOG_NAME, "forward from page %d", m_pageNum);
 			if (! atEnd) {
 				m_pageNum++;
-				m_uxController->m_systemBar.hide();
-				m_uxController->m_navBar.hide();
+				m_uxController->m_systemBar->hide();
+				m_uxController->m_navBar->hide();
 				invalidate();
 			}
 			return -1;
@@ -56,27 +56,27 @@ int ReadActivityFb::evtKey(struct OcherKeyEvent* evt)
 
 int ReadActivityFb::evtMouse(struct OcherMouseEvent* evt)
 {
-	SystemBar& systemBar = m_uxController->m_systemBar;
-	NavBar& navBar = m_uxController->m_navBar;
+	SystemBar* systemBar = m_uxController->m_systemBar;
+	NavBar* navBar = m_uxController->m_navBar;
 
 	if (evt->subtype == OEVT_MOUSE1_UP) {
 		Pos pos(evt->x, evt->y);
-		if (systemBar.m_rect.contains(&pos) || navBar.m_rect.contains(&pos)) {
-			if (systemBar.m_flags & WIDGET_HIDDEN) {
+		if (systemBar->m_rect.contains(&pos) || navBar->m_rect.contains(&pos)) {
+			if (systemBar->m_flags & WIDGET_HIDDEN) {
 				clc::Log::info(LOG_NAME, "show system bar");
-				systemBar.show();
-				m_fb->update(&systemBar.m_rect);
-				navBar.show();
-				m_fb->update(&navBar.m_rect);
+				systemBar->show();
+				m_fb->update(&systemBar->m_rect);
+				navBar->show();
+				m_fb->update(&navBar->m_rect);
 			} else {
 				clc::Log::info(LOG_NAME, "interact bar");
 				// TODO interact
 			}
 		} else {
-			if (! (systemBar.m_flags & WIDGET_HIDDEN)) {
+			if (! (systemBar->m_flags & WIDGET_HIDDEN)) {
 				clc::Log::info(LOG_NAME, "hide system bar");
-				systemBar.hide();
-				navBar.hide();
+				systemBar->hide();
+				navBar->hide();
 				invalidate();
 			} else {
 				if (evt->x < m_fb->width()/2) {
@@ -190,15 +190,15 @@ void ReadActivityFb::onAttached()
 	}
 #endif
 
-	SystemBar& systemBar = m_uxController->m_systemBar;
-	NavBar& navBar = m_uxController->m_navBar;
+	SystemBar* systemBar = m_uxController->m_systemBar;
+	NavBar* navBar = m_uxController->m_navBar;
 
 	addChild(systemBar);
-	systemBar.m_sep = true;
-	systemBar.m_title = meta->title;
-	systemBar.hide();
+	systemBar->m_sep = true;
+	systemBar->m_title = meta->title;
+	systemBar->hide();
 
-	navBar.hide();
+	navBar->hide();
 	addChild(navBar);
 
 	meta->record.touch();
@@ -212,8 +212,8 @@ void ReadActivityFb::onDetached()
 	clc::Log::info(LOG_NAME, "Quitting on page %u", m_pageNum);
 	meta->record.activePage = m_pageNum;
 
-	removeChild(&m_uxController->m_systemBar);
-	removeChild(&m_uxController->m_navBar);
+	removeChild(m_uxController->m_systemBar);
+	removeChild(m_uxController->m_navBar);
 
 	if (m_layout) {
 		delete m_layout;

@@ -17,16 +17,12 @@
 #define WIDGET_DIRTY  4
 
 
-class Widget;
+class Window;
 
-// TODO:  This goes into ActivityFb (and/or UxControllerFb)
-#if 0
 /**
  * Represents the drawing area of a FrameBuffer and interacts with an EventLoop.
- *
- * TODO does this go to UxControllerFb?
  */
-class FbScreen : public Screen
+class FbScreen
 {
 public:
 	FbScreen();
@@ -38,14 +34,14 @@ public:
 	/**
 	 * Adds a child (transfers ownership).
 	 */
-	void addChild(Activity* child);
+	void addChild(Window* child);
 
 	/**
 	 * Adds a child (does not transfer ownership).
 	 */
 //	void addChild(Widget& child);
 
-	void removeChild(Activity* child);
+	void removeChild(Window* child);
 
 	void onMouseEvent(struct OcherMouseEvent*);
 	void onKeyEvent(struct OcherKeyEvent*);
@@ -73,7 +69,6 @@ protected:
 	Rect m_rect;
 	clc::List m_children;
 };
-#endif
 
 
 /**

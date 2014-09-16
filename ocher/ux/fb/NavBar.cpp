@@ -7,9 +7,9 @@
 #include "ocher/ux/fb/NavBar.h"
 
 
-NavBar::NavBar() :
-	Window(0, g_container.frameBuffer->height()-50, g_container.frameBuffer->width(), 50),
-	m_fb(g_container.frameBuffer)
+NavBar::NavBar(FrameBuffer* fb) :
+	Window(0, fb->height()-50, fb->width(), 50),
+	m_fb(fb)
 {
 }
 

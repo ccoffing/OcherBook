@@ -24,8 +24,6 @@ protected:
 	void onAttached();
 	void onDetached();
 
-	FrameBuffer* m_fb;
-
 	float coverRatio;
 #define NUM_CLUSTER_BOOKS 5
 	Rect books[NUM_CLUSTER_BOOKS];

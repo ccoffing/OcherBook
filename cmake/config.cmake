@@ -21,10 +21,10 @@ endif()
 set(OCHER_AIRBAG_FD ${OCHER_AIRBAG_FD_DEF} CACHE BOOL "Use airbagfd crash handler (only for unix)")
 
 ### eBook formats
-set(OCHER_EPUB TRUE CACHE BOOL "Support EPUB books")
-set(OCHER_TEXT TRUE CACHE BOOL "Support plain text books")
-set(OCHER_HTML TRUE CACHE BOOL "Support HTML books")
-set(OCHER_JPEG TRUE CACHE BOOL "Support JPEG images")
+set(OCHER_FMT_EPUB TRUE CACHE BOOL "Support EPUB books")
+set(OCHER_FMT_TEXT TRUE CACHE BOOL "Support plain text books")
+set(OCHER_FMT_HTML TRUE CACHE BOOL "Support HTML books")
+set(OCHER_FMT_JPEG TRUE CACHE BOOL "Support JPEG images")
 
 ### Output devices
 set(OCHER_UI_FD TRUE CACHE BOOL "File descriptor user interface")

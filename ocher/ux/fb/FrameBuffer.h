@@ -26,6 +26,8 @@ public:
 
 	Rect bbox;
 
+	virtual bool init() = 0;
+
 	virtual unsigned int height() = 0;
 	virtual unsigned int width() = 0;
 	virtual unsigned int dpi() = 0;

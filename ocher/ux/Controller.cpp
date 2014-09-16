@@ -57,22 +57,6 @@ void UxController::onDirChanged(const char* dir, const char* file)
 	// TODO
 }
 
-//void UxController::detachCurrent()
-//{
-//	if (m_activityPanel) {
-//		m_uxController->removeChild(m_activityPanel);
-//		m_activityPanel->onDetached();
-//	}
-//}
-
-//void UxController::attachCurrent()
-//{
-//	if (m_activityPanel) {
-//		m_uxController->addChild(m_activityPanel);
-//		m_activityPanel->onAttached();
-//	}
-//}
-
 void UxController::onWantToSleep()
 {
 	clc::Log::info(LOG_NAME, "onWantToSleep");
@@ -127,7 +111,7 @@ Controller::Controller(Options* options) :
 	UxController* uxController = NULL;
 	for (unsigned int i = 0; i < g_container.uxControllers.size(); ++i) {
 		UxController* c = (UxController*)g_container.uxControllers.get(i);
-		clc::Log::info("ocher", "considering driver %s", options->driverName);
+		clc::Log::info("ocher", "considering driver %s", c->getName());
 
 		if (options->driverName) {
 			if (strcmp(c->getName(), options->driverName) == 0) {
@@ -140,9 +124,11 @@ Controller::Controller(Options* options) :
 				break;
 			}
 		} else {
-			if (c->init()) {
+			if (c->init() == true) {
 				uxController = c;
 				break;
+			} else {
+				clc::Log::info("ocher", "driver %s failed to init", c->getName());
 			}
 		}
 	}
@@ -232,9 +218,7 @@ void Controller::run()
 
 	Options* opt = g_container.options;
 	ActivityType a = opt->bootMenu ? ACTIVITY_BOOT : ACTIVITY_SYNC;
-	do {
-		m_uxController->run(a);
-	} while (a != ACTIVITY_QUIT);
+	m_uxController->run(a);
 
 	// TODO: sync state out
 }

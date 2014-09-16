@@ -29,13 +29,13 @@ Container::Container() :
 
 Container::~Container()
 {
-	delete loop;
-	delete device;
+	delete uxController;
 	delete battery;
 	delete filesystem;
 	delete settings;
 	delete powerSaver;
-	delete uxController;
+	delete loop;
+	delete device;
 #ifdef UX_FB  // TODO:  Does this belong on UxControllerFb?  no one else would use it.
 	delete frameBuffer;
 	delete fontEngine;

@@ -28,7 +28,7 @@ protected:
 	void onAttached();
 	void onDetached();
 
-	SystemBar& m_systemBar;
+	SystemBar* m_systemBar;
 	FrameBuffer* m_fb;
 	Settings* m_settings;
 	const clc::List* m_library;

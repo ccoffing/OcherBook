@@ -92,7 +92,7 @@ void SyncActivityFb::draw()
 
 SyncActivityFb::SyncActivityFb(UxControllerFb* c) :
 	ActivityFb(c),
-	m_fb(g_container.frameBuffer),
+	m_fb(c->getFrameBuffer()),
 	m_spinner(g_container.loop)
 {
 	maximize();

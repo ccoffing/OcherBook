@@ -16,7 +16,7 @@
 class SystemBar : public Window
 {
 public:
-	SystemBar(Battery* battery);
+	SystemBar(FrameBuffer* fb, Battery* battery);
 
 	bool m_sep;
 	clc::Buffer m_title;

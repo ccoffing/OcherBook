@@ -2,6 +2,7 @@
 #include "ocher/device/Device.h"
 #include "ocher/ux/fb/FontEngine.h"
 #include "ocher/ux/fb/SleepActivityFb.h"
+#include "ocher/ux/fb/UxControllerFb.h"
 
 #include <unistd.h>
 
@@ -9,7 +10,7 @@
 SleepActivityFb::SleepActivityFb(UxControllerFb* c) :
 	ActivityFb(c),
 	m_uxController(c),
-	m_fb(g_container.frameBuffer),
+	m_fb(c->getFrameBuffer()),
 	m_device(g_container.device),
 	m_loop(g_container.loop)
 {

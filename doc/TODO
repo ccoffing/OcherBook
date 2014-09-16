@@ -1,15 +1,22 @@
 Refactor:
+    new UxControllerFb references FrameBuffer too early
+        SystemBar
+        NavBar too?
     UxController
         how UxController runs ActivityFb - m_loop.run() ?
         how it returns
         how to set next activity
+    SDL:
+        fix startup
+
+    CDK:
+        fix build
+        cdk is blocking, not event driven.  how does loop fit in?
+
     build with fb, fd, cdk enabled
     finish: create UxController, kill Factories  (--list-drivers)
         any potential variations within a UxController (framebuffer, but which driver is appropriate?)
             is handled within the UxController
-    FbScreen (from Widgets) rolls into ActivityFb, etc
-    CDK:
-        cdk is blocking, not event driven.  how does loop fit in?
     proof: bring back ncurses, haiku
         split *Activity into controller/view.  view is specific to output device.
     remove m_loop from Framebuffers (only needed for KoboEvents)

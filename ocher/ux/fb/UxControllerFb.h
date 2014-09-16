@@ -35,26 +35,29 @@ public:
 	Renderer* getRenderer() { return m_renderer; }
 
 	void run(enum ActivityType a);
-	void setNextActivity(enum ActivityType a) {} // TODO
 
-	SystemBar m_systemBar;
-	NavBar m_navBar;
+	SystemBar* m_systemBar;
+	NavBar* m_navBar;
+
+	void setNextActivity(enum ActivityType a);
 
 protected:
-	void setActivity(enum ActivityType a);
 
+	enum ActivityType m_nextActivity;
 	ActivityFb* m_activity;
-	BootActivityFb m_bootActivity;
-	HomeActivityFb m_homeActivity;
-	LibraryActivityFb m_libraryActivity;
-	ReadActivityFb m_readActivity;
-	SettingsActivityFb m_settingsActivity;
-	SleepActivityFb m_sleepActivity;
-	SyncActivityFb m_syncActivity;
+
+	BootActivityFb* m_bootActivity;
+	HomeActivityFb* m_homeActivity;
+	LibraryActivityFb* m_libraryActivity;
+	ReadActivityFb* m_readActivity;
+	SettingsActivityFb* m_settingsActivity;
+	SleepActivityFb* m_sleepActivity;
+	SyncActivityFb* m_syncActivity;
 
 	Renderer* m_renderer;
 	FontEngine* m_fontEngine;
 	FrameBuffer* m_frameBuffer;
+	FbScreen* m_screen;
 
 	clc::Buffer m_name;
 };

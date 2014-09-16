@@ -17,7 +17,6 @@
 
 HomeActivityFb::HomeActivityFb(UxControllerFb* c) :
 	ActivityFb(c),
-	m_fb(g_container.frameBuffer),
 	coverRatio(1.6)
 {
 	maximize();
@@ -201,11 +200,11 @@ void HomeActivityFb::onAttached()
 {
 	clc::Log::info(LOG_NAME, "attached");
 
-	SystemBar& systemBar = m_uxController->m_systemBar;
+	SystemBar* systemBar = m_uxController->m_systemBar;
 	addChild(systemBar);
-	systemBar.m_sep = false;
-	systemBar.m_title = "HOME";
-	systemBar.show();
+	systemBar->m_sep = false;
+	systemBar->m_title = "HOME";
+	systemBar->show();
 
 	invalidate();
 }
@@ -213,6 +212,6 @@ void HomeActivityFb::onAttached()
 void HomeActivityFb::onDetached()
 {
 	clc::Log::info(LOG_NAME, "detached");
-	SystemBar& systemBar = m_uxController->m_systemBar;
-	removeChild(&systemBar);
+	SystemBar* systemBar = m_uxController->m_systemBar;
+	removeChild(systemBar);
 }

@@ -12,7 +12,7 @@
 class NavBar : public Window
 {
 public:
-	NavBar();
+	NavBar(FrameBuffer* fb);
 
 protected:
 	FrameBuffer* m_fb;
